@@ -1,7 +1,15 @@
-// This is a simple TypeScript index file
+import { sendGithubRateLimitRequest } from './githubRestAPIRequest';
 
-function welcomeMessage(name: string): string {
-    return `Welcome to TypeScript, ${name}!`;
+
+async function main() {
+    console.log("This is github rest api request service");
+
+    try {
+        const response = await sendGithubRateLimitRequest();
+        console.log(response);
+    } catch (error) {
+        console.log(error);
+    }
 }
 
-console.log(welcomeMessage("Developer"));
+main();
