@@ -16,13 +16,13 @@ create table repos (
 );
 
 create table prs (
-    id serial primary key,
     repo_id integer not null,
     pr_name varchar(50) not null,
     pr_id integer not null,
     author varchar(50) not null,
     base_branch varchar(50) not null,
-    foreign key (repo_id) references repos(id)
+    foreign key (repo_id) references repos(id),
+    primary key (repo_id, pr_id)
 );
 
 create table reviews (
