@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "experimentalDecorators": true,
     "target": "es5",                         // 컴파일된 JavaScript가 지원할 ECMAScript 버전
     "module": "commonjs",                    // 사용할 모듈 시스템
     "outDir": "./dist",                      // 컴파일된 파일들이 위치할 디렉토리
@@ -7,7 +8,8 @@
     "strict": true,                          // 모든 엄격한 타입-체킹 옵션을 활성화
     "esModuleInterop": true,                 // default export가 없는 모듈을 위한 지원을 활성화
     "skipLibCheck": true,                    // 선언 파일의 타입 체킹을 건너뛰기
-    "forceConsistentCasingInFileNames": true // 대소문자가 일치하지 않는 파일 참조를 금지
+    "forceConsistentCasingInFileNames": true, // 대소문자가 일치하지 않는 파일 참조를 금지
+    "emitDecoratorMetadata": true           // 데코레이터가 선언된 타입 정보를 알아내기 위해 데코레이터 메타데이터를 생성
   },
   "include": [
     "src/**/*"                               // 컴파일할 TypeScript 파일들의 패턴
