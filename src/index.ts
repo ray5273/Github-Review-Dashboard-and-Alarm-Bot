@@ -1,5 +1,5 @@
 import "reflect-metadata";
-import { sendGithubRateLimitRequest } from './githubRestAPIRequest';
+import { sendGithubRateLimitRequest, sendGithubPullRequestsRequest, sendGithubReviewsRequest } from './githubRestAPIRequest';
 import { initDatabase } from './database';
 import {Users} from './entity/user.entity';
 import {Prs} from "./entity/pr.entity";
@@ -14,35 +14,40 @@ async function main() {
         const result = await sendGithubRateLimitRequest();
         console.log(result)
 
-        const user = await datasource
-            .getRepository(Users)
-            .createQueryBuilder("user")
-            .where("user.name = :name", { name: "hello" })
-            .getOne()
+        const repoLists = await datasource.getRepository(Repos).find();
+        console.log(repoLists)
 
-        console.log(user);
+        for (let repo of repoLists) {
+            const pullRequestLists = await sendGithubPullRequestsRequest("poseidonos", repo.name);
+            // console.log(pullRequestLists)
+            var prs : Prs[] = [];
+            // TODO : github pr response to prs entity
+            for (let pr of pullRequestLists) {
+                pr.author = pr.user.login;
+                pr.repo_id = repo.id;
+                pr.pr_name = pr.title;
+                pr.pr_id = pr.number;
+                pr.base_branch = pr.base.ref;
+                prs.push(pr);
+            }
+            await datasource.getRepository(Prs).save(prs);
 
-        const pr = await datasource
-            .getRepository(Prs)
-            .createQueryBuilder("pr")
-            .where("pr.pr_name = :pr_name", { pr_name: "pr1" })
-            .getOne()
-        console.log(pr);
+            var reviews : Reviews[] = [];
+            // TODO : github reviews response to reviews entity
+            for (let pr of prs) {
+                const reviewLists = await sendGithubReviewsRequest("poseidonos", repo.name, pr.pr_id);
+                console.log(reviewLists)
+                // for (let review of reviewLists) {
+                //     review.pr_id = pr.pr_id;
+                //     review.pr_name = pr.title;
+                //     review.repo_id = repo.id;
+                //     reviews.push(review);
+                // }
+            }
+        }
 
-        const review = await datasource
-            .getRepository(Reviews)
-            .createQueryBuilder("review")
-            .where("review.reviewer = :reviewer", { reviewer: "sang" })
-            .getOne()
-        console.log(review);
-
-        const repo = await datasource
-            .getRepository(Repos)
-            .createQueryBuilder("repo")
-            .where("repo.name = :repo_name", { repo_name: "essential" })
-            .getOne()
-        console.log(repo);
-
+        const prLists = await datasource.getRepository(Prs).find();
+        console.log(prLists)
 
 
     } catch (error) {

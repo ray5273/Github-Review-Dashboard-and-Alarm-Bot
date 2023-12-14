@@ -3,15 +3,12 @@ import {Entity, PrimaryColumn, Column} from "typeorm";
 @Entity()
 export class Prs {
     @PrimaryColumn()
-    id!: number
-
-    @Column()
     repo_id!: number
 
     @Column()
     pr_name!: string
 
-    @Column()
+    @PrimaryColumn()
     pr_id!: number
 
     @Column()
