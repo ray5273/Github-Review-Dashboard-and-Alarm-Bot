@@ -1,4 +1,4 @@
-import { DataSource} from "typeorm";
+import { DataSource } from "typeorm";
 import { POSTGRES_HOST, POSTGRES_PORT, POSTGRES_USER, POSTGRES_DATABASE, POSTGRES_PASSWORD } from './config';
 
 function createDataSource() {
@@ -13,9 +13,9 @@ function createDataSource() {
     });
 }
 
-const AppDataSource = createDataSource();
+export const AppDataSource = createDataSource();
 
-export async function initDatabase() {
-    await AppDataSource.initialize();
+export function initDatabase() {
+    const result = AppDataSource.initialize();
     return AppDataSource;
 };

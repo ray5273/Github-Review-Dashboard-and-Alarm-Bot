@@ -10,4 +10,7 @@ export class Repos {
 
     @Column()
     is_internal!: boolean
+
+    @Column()
+    owner!: string
 }

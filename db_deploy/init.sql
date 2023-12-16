@@ -11,7 +11,8 @@ create table users (
 create table repos (
     id serial primary key,
     name varchar(255) not null,
-    is_internal boolean not null
+    is_internal boolean not null,
+    owner varchar(255) not null
 --     base_url varchar(255) not null
 );
 
@@ -26,6 +27,16 @@ create table prs (
 );
 
 create table reviews (
+    review_id integer not null ,
+    pr_id integer not null,
+    reviewer varchar(255) not null,
+    repo_id integer not null,
+    state varchar(255) not null,
+    submitted_at timestamp not null,
+    primary key (review_id, repo_id)
+);
+
+create table review_status (
     pr_id integer not null,
     reviewer varchar(255) not null,
     repo_id integer not null,

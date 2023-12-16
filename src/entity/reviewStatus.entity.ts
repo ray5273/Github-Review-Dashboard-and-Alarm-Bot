@@ -1,22 +1,16 @@
 import {Entity, PrimaryColumn, Column} from "typeorm";
 
 @Entity()
-export class Reviews {
+export class ReviewStatus {
     @PrimaryColumn()
-    review_id!: number
-
-    @Column()
     pr_id!: number
 
-    @Column()
+    @PrimaryColumn()
     reviewer!: string
 
     @PrimaryColumn()
     repo_id!: number
 
     @Column()
-    state!: string
-
-    @Column()
-    submitted_at!: Date
+    status!: string
 }
