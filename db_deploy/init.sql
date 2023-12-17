@@ -7,6 +7,7 @@ create table users (
     team_name varchar(255) not null,
     primary key (name, company_id)
 );
+-- insert into users (name, github_id, company_id, team_name) values ('', '', '', '');
 
 create table repos (
     id serial primary key,
@@ -15,6 +16,7 @@ create table repos (
     owner varchar(255) not null
 --     base_url varchar(255) not null
 );
+-- insert into repos (name, is_internal, owner) values ('', true, '');
 
 create table prs (
     repo_id integer not null,
@@ -32,7 +34,7 @@ create table reviews (
     reviewer varchar(255) not null,
     repo_id integer not null,
     state varchar(255) not null,
-    submitted_at timestamp not null,
+    submitted_at timestamp,
     primary key (review_id, repo_id)
 );
 
