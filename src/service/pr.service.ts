@@ -31,6 +31,8 @@ export class PrService {
             prEntity.pr_name = pr.title;
             prEntity.pr_id = pr.number;
             prEntity.base_branch = pr.base.ref;
+            prEntity.is_closed = pr.state == "closed" ? true : false;
+            prEntity.created_at = pr.created_at;
             prs.push(prEntity);
         }
 

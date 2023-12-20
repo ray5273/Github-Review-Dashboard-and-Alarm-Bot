@@ -44,7 +44,7 @@ export class ReviewStatusService {
             var reviewStatusByPrId : ReviewStatus = new ReviewStatus();
             const reviewListByUser = await this.reviewInstance.getReviewListByReviewerAndPrIdAndRepoId(user.github_id, prId, repoId);
 
-            reviewStatusByPrId.reviewer = user.name;
+            reviewStatusByPrId.reviewer = user.github_id;
             reviewStatusByPrId.pr_id = prId;
             reviewStatusByPrId.status = this.determineReviewStatus(reviewListByUser);
             reviewStatusByPrId.repo_id = repoId;

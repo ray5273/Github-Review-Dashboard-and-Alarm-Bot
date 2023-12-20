@@ -24,6 +24,8 @@ create table prs (
     pr_id integer not null,
     author varchar(255) not null,
     base_branch varchar(255) not null,
+    is_closed boolean not null,
+    created_at timestamp not null,
     foreign key (repo_id) references repos(id),
     primary key (repo_id, pr_id)
 );

@@ -16,4 +16,10 @@ export class Prs {
 
     @Column()
     base_branch!: string
+
+    @Column()
+    is_closed!: boolean
+
+    @Column()
+    created_at!: Date
 }
