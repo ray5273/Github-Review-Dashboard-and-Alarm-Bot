@@ -15,7 +15,7 @@ function createDataSource() {
 
 export const AppDataSource = createDataSource();
 
-export function initDatabase() {
-    const result = AppDataSource.initialize();
+export async function initDatabase() {
+    const result = await AppDataSource.initialize();
     return AppDataSource;
 };
