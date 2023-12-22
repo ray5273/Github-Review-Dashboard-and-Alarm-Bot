@@ -7,16 +7,14 @@ create table users (
     team_name varchar(255) not null,
     primary key (name, company_id)
 );
--- insert into users (name, github_id, company_id, team_name) values ('', '', '', '');
+
 
 create table repos (
     id serial primary key,
     name varchar(255) not null,
     is_internal boolean not null,
     owner varchar(255) not null
---     base_url varchar(255) not null
 );
--- insert into repos (name, is_internal, owner) values ('', true, '');
 
 create table prs (
     repo_id integer not null,
@@ -26,6 +24,9 @@ create table prs (
     base_branch varchar(255) not null,
     is_closed boolean not null,
     created_at timestamp not null,
+    html_url varchar(255) not null,
+    requested_reviewers TEXT[] not null,
+    requested_teams TEXT[] not null,
     foreign key (repo_id) references repos(id),
     primary key (repo_id, pr_id)
 );

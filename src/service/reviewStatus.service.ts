@@ -36,19 +36,18 @@ export class ReviewStatusService {
         return this.instance.find({where: {status: status}})
     }
 
-    async CreateReviewStatus(Users: Users[], prId: number, repoId: number) : Promise<ReviewStatus[]>{
+    async CreateReviewStatus(Users: Set<Users>, prId: number, repoId: number) : Promise<ReviewStatus[]>{
 
         var reviewStatuses : ReviewStatus[] = [];
         // 특정 PR에 대한 모든 user의 대한 review status를 저장한다.
         for (let user of Users) {
             var reviewStatusByPrId : ReviewStatus = new ReviewStatus();
+            // user의 특정 PR에 대한 review list를 가져온다.
             const reviewListByUser = await this.reviewInstance.getReviewListByReviewerAndPrIdAndRepoId(user.github_id, prId, repoId);
-
             reviewStatusByPrId.reviewer = user.github_id;
             reviewStatusByPrId.pr_id = prId;
             reviewStatusByPrId.status = this.determineReviewStatus(reviewListByUser);
             reviewStatusByPrId.repo_id = repoId;
-
             reviewStatuses.push(reviewStatusByPrId);
         }
 
@@ -57,6 +56,7 @@ export class ReviewStatusService {
 
     determineReviewStatus(reviewListByUser: Reviews[]) : string {
         // review status mechanism
+        // 리뷰 한 흔적이 없는 경우
         if (reviewListByUser.length == 0) {
             return STATUS_PENDING;
         } else {
@@ -82,5 +82,9 @@ export class ReviewStatusService {
             }
         }
     }
+
+    // determineRequestedReviewers(reviewListByUser: Reviews[],) : string[] {
+    //
+    // }
 
 }

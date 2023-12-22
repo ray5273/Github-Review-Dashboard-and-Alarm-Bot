@@ -1,0 +1,2043 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 2,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "f8268498-6b46-41b4-9285-37de087ad791"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-blues"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "color-background"
+            },
+            "inspect": false
+          },
+          "mappings": [
+            {
+              "options": {
+                "approved": {
+                  "color": "green",
+                  "index": 0,
+                  "text": "리뷰 완료"
+                },
+                "change_requested": {
+                  "color": "orange",
+                  "index": 2,
+                  "text": "코드 반영 요청 상태"
+                },
+                "commented": {
+                  "color": "yellow",
+                  "index": 1,
+                  "text": "추가 리뷰 필요"
+                },
+                "pending": {
+                  "color": "red",
+                  "index": 3,
+                  "text": "리뷰 필요"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "리뷰 하러 가기"
+            },
+            "properties": [
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "targetBlank": true,
+                    "title": "바로가기",
+                    "url": "${__data.fields.링크}"
+                  }
+                ]
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "auto"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "리포지토리"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "palette-classic"
+                }
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "pos-essential-api-server": {
+                        "color": "green",
+                        "index": 4,
+                        "text": "API Server"
+                      },
+                      "pos-essential-discovery-controller": {
+                        "color": "purple",
+                        "index": 3,
+                        "text": "Discovery Controller"
+                      },
+                      "pos-essential-idl": {
+                        "color": "#0e4e87",
+                        "index": 6,
+                        "text": "IDL"
+                      },
+                      "pos-essential-ioworker": {
+                        "color": "semi-dark-orange",
+                        "index": 1,
+                        "text": "IO Worker"
+                      },
+                      "pos-essential-orchestrator": {
+                        "color": "semi-dark-blue",
+                        "index": 0,
+                        "text": "Orchestrator"
+                      },
+                      "pos-essential-ssd-anomaly-detector": {
+                        "color": "#483377",
+                        "index": 5,
+                        "text": "SSD Anomaly Detector"
+                      },
+                      "pos-essential-upgrade-agent": {
+                        "color": "#808080",
+                        "index": 2,
+                        "text": "Upgrade Agent"
+                      },
+                      "pos-essential-workflow": {
+                        "color": "#a9d877",
+                        "index": 7,
+                        "text": "Workflow "
+                      }
+                    },
+                    "type": "value"
+                  }
+                ]
+              },
+              {
+                "id": "custom.align",
+                "value": "center"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "오래된 정도"
+            },
+            "properties": [
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "1일 지남": {
+                        "color": "red",
+                        "index": 2
+                      },
+                      "4시간 이내": {
+                        "color": "blue",
+                        "index": 0
+                      },
+                      "4시간 지남": {
+                        "color": "yellow",
+                        "index": 1
+                      }
+                    },
+                    "type": "value"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "PR 이름"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 250
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 12,
+        "x": 0,
+        "y": 0
+      },
+      "id": 1,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "10.0.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "d3306be6-3a4d-4eed-be03-233f4661756e"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "select\r\n    repos.name AS \"리포지토리\",\r\n    prs.pr_name AS \"PR 이름\",\r\n    prs.base_branch AS \"머지 대상\",\r\n    review_status.status AS \"리뷰 상태\",\r\n    CASE\r\n           WHEN EXTRACT(EPOCH FROM (NOW() - prs.created_at)) / 3600 > 24 THEN '1일 지남'\r\n           WHEN EXTRACT(EPOCH FROM (NOW() - prs.created_at)) / 3600 > 4 THEN '4시간 지남'\r\n           ELSE '4시간 이내'\r\n    END AS \"오래된 정도\",\r\n    prs.html_url AS \"리뷰 하러 가기\"\r\nfrom prs\r\n         INNER JOIN review_status\r\n                    ON prs.pr_id = review_status.pr_id\r\n                        AND prs.repo_id = review_status.repo_id\r\n                        AND prs.author != review_status.reviewer\r\n         INNER JOIN users\r\n                    ON users.github_id = review_status.reviewer\r\n         INNER JOIN repos\r\n                    ON repos.id = prs.repo_id\r\nwhere prs.is_closed = false and users.name = '박상혁'\r\nORDER BY prs.created_at DESC\r\n",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "리뷰 대시보드",
+      "transformations": [],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "f8268498-6b46-41b4-9285-37de087ad791"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-blues"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "color-background"
+            },
+            "inspect": false
+          },
+          "mappings": [
+            {
+              "options": {
+                "approved": {
+                  "color": "green",
+                  "index": 0,
+                  "text": "리뷰 완료"
+                },
+                "change_requested": {
+                  "color": "orange",
+                  "index": 2,
+                  "text": "코드 반영 요청 상태"
+                },
+                "commented": {
+                  "color": "yellow",
+                  "index": 1,
+                  "text": "추가 리뷰 필요"
+                },
+                "pending": {
+                  "color": "red",
+                  "index": 3,
+                  "text": "리뷰 필요"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "리뷰 하러 가기"
+            },
+            "properties": [
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "targetBlank": true,
+                    "title": "바로가기",
+                    "url": "${__data.fields.링크}"
+                  }
+                ]
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "auto"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "리포지토리"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "palette-classic"
+                }
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "pos-essential-api-server": {
+                        "color": "green",
+                        "index": 4,
+                        "text": "API Server"
+                      },
+                      "pos-essential-discovery-controller": {
+                        "color": "purple",
+                        "index": 3,
+                        "text": "Discovery Controller"
+                      },
+                      "pos-essential-idl": {
+                        "color": "#0e4e87",
+                        "index": 6,
+                        "text": "IDL"
+                      },
+                      "pos-essential-ioworker": {
+                        "color": "semi-dark-orange",
+                        "index": 1,
+                        "text": "IO Worker"
+                      },
+                      "pos-essential-orchestrator": {
+                        "color": "semi-dark-blue",
+                        "index": 0,
+                        "text": "Orchestrator"
+                      },
+                      "pos-essential-ssd-anomaly-detector": {
+                        "color": "#483377",
+                        "index": 5,
+                        "text": "SSD Anomaly Detector"
+                      },
+                      "pos-essential-upgrade-agent": {
+                        "color": "#808080",
+                        "index": 2,
+                        "text": "Upgrade Agent"
+                      },
+                      "pos-essential-workflow": {
+                        "color": "#a9d877",
+                        "index": 7,
+                        "text": "Workflow "
+                      }
+                    },
+                    "type": "value"
+                  }
+                ]
+              },
+              {
+                "id": "custom.align",
+                "value": "center"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "오래된 정도"
+            },
+            "properties": [
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "1일 지남": {
+                        "color": "red",
+                        "index": 2
+                      },
+                      "4시간 이내": {
+                        "color": "blue",
+                        "index": 0
+                      },
+                      "4시간 지남": {
+                        "color": "yellow",
+                        "index": 1
+                      }
+                    },
+                    "type": "value"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "PR 이름"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 250
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 12,
+        "x": 12,
+        "y": 0
+      },
+      "id": 2,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "10.0.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "d3306be6-3a4d-4eed-be03-233f4661756e"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "select\r\n    repos.name AS \"리포지토리\",\r\n    prs.pr_name AS \"PR 이름\",\r\n    prs.base_branch AS \"머지 대상\",\r\n    review_status.status AS \"리뷰 상태\",\r\n    CASE\r\n           WHEN EXTRACT(EPOCH FROM (NOW() - prs.created_at)) / 3600 > 24 THEN '1일 지남'\r\n           WHEN EXTRACT(EPOCH FROM (NOW() - prs.created_at)) / 3600 > 4 THEN '4시간 지남'\r\n           ELSE '4시간 이내'\r\n    END AS \"오래된 정도\",\r\n    prs.html_url AS \"리뷰 하러 가기\"\r\nfrom prs\r\n         INNER JOIN review_status\r\n                    ON prs.pr_id = review_status.pr_id\r\n                        AND prs.repo_id = review_status.repo_id\r\n                        AND prs.author != review_status.reviewer\r\n         INNER JOIN users\r\n                    ON users.github_id = review_status.reviewer\r\n         INNER JOIN repos\r\n                    ON repos.id = prs.repo_id\r\nwhere prs.is_closed = false and users.name = '박현우'\r\nORDER BY prs.created_at DESC\r\n",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "리뷰 대시보드 ",
+      "transformations": [],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "f8268498-6b46-41b4-9285-37de087ad791"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-blues"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "color-background"
+            },
+            "inspect": false
+          },
+          "mappings": [
+            {
+              "options": {
+                "approved": {
+                  "color": "green",
+                  "index": 0,
+                  "text": "리뷰 완료"
+                },
+                "change_requested": {
+                  "color": "orange",
+                  "index": 2,
+                  "text": "코드 반영 요청 상태"
+                },
+                "commented": {
+                  "color": "yellow",
+                  "index": 1,
+                  "text": "추가 리뷰 필요"
+                },
+                "pending": {
+                  "color": "red",
+                  "index": 3,
+                  "text": "리뷰 필요"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "리뷰 하러 가기"
+            },
+            "properties": [
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "targetBlank": true,
+                    "title": "바로가기",
+                    "url": "${__data.fields.링크}"
+                  }
+                ]
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "auto"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "리포지토리"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "palette-classic"
+                }
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "pos-essential-api-server": {
+                        "color": "green",
+                        "index": 4,
+                        "text": "API Server"
+                      },
+                      "pos-essential-discovery-controller": {
+                        "color": "purple",
+                        "index": 3,
+                        "text": "Discovery Controller"
+                      },
+                      "pos-essential-idl": {
+                        "color": "#0e4e87",
+                        "index": 6,
+                        "text": "IDL"
+                      },
+                      "pos-essential-ioworker": {
+                        "color": "semi-dark-orange",
+                        "index": 1,
+                        "text": "IO Worker"
+                      },
+                      "pos-essential-orchestrator": {
+                        "color": "semi-dark-blue",
+                        "index": 0,
+                        "text": "Orchestrator"
+                      },
+                      "pos-essential-ssd-anomaly-detector": {
+                        "color": "#483377",
+                        "index": 5,
+                        "text": "SSD Anomaly Detector"
+                      },
+                      "pos-essential-upgrade-agent": {
+                        "color": "#808080",
+                        "index": 2,
+                        "text": "Upgrade Agent"
+                      },
+                      "pos-essential-workflow": {
+                        "color": "#a9d877",
+                        "index": 7,
+                        "text": "Workflow "
+                      }
+                    },
+                    "type": "value"
+                  }
+                ]
+              },
+              {
+                "id": "custom.align",
+                "value": "center"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "오래된 정도"
+            },
+            "properties": [
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "1일 지남": {
+                        "color": "red",
+                        "index": 2
+                      },
+                      "4시간 이내": {
+                        "color": "blue",
+                        "index": 0
+                      },
+                      "4시간 지남": {
+                        "color": "yellow",
+                        "index": 1
+                      }
+                    },
+                    "type": "value"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "PR 이름"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 250
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 12,
+        "x": 0,
+        "y": 6
+      },
+      "id": 6,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "10.0.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "d3306be6-3a4d-4eed-be03-233f4661756e"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "select\r\n    repos.name AS \"리포지토리\",\r\n    prs.pr_name AS \"PR 이름\",\r\n    prs.base_branch AS \"머지 대상\",\r\n    review_status.status AS \"리뷰 상태\",\r\n    CASE\r\n           WHEN EXTRACT(EPOCH FROM (NOW() - prs.created_at)) / 3600 > 24 THEN '1일 지남'\r\n           WHEN EXTRACT(EPOCH FROM (NOW() - prs.created_at)) / 3600 > 4 THEN '4시간 지남'\r\n           ELSE '4시간 이내'\r\n    END AS \"오래된 정도\",\r\n    prs.html_url AS \"리뷰 하러 가기\"\r\nfrom prs\r\n         INNER JOIN review_status\r\n                    ON prs.pr_id = review_status.pr_id\r\n                        AND prs.repo_id = review_status.repo_id\r\n                        AND prs.author != review_status.reviewer\r\n         INNER JOIN users\r\n                    ON users.github_id = review_status.reviewer\r\n         INNER JOIN repos\r\n                    ON repos.id = prs.repo_id\r\nwhere prs.is_closed = false and users.name = '강철호'\r\nORDER BY prs.created_at DESC\r\n",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "리뷰 대시보드",
+      "transformations": [],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "f8268498-6b46-41b4-9285-37de087ad791"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-blues"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "color-background"
+            },
+            "inspect": false
+          },
+          "mappings": [
+            {
+              "options": {
+                "approved": {
+                  "color": "green",
+                  "index": 0,
+                  "text": "리뷰 완료"
+                },
+                "change_requested": {
+                  "color": "orange",
+                  "index": 2,
+                  "text": "코드 반영 요청 상태"
+                },
+                "commented": {
+                  "color": "yellow",
+                  "index": 1,
+                  "text": "추가 리뷰 필요"
+                },
+                "pending": {
+                  "color": "red",
+                  "index": 3,
+                  "text": "리뷰 필요"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "리뷰 하러 가기"
+            },
+            "properties": [
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "targetBlank": true,
+                    "title": "바로가기",
+                    "url": "${__data.fields.링크}"
+                  }
+                ]
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "auto"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "리포지토리"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "palette-classic"
+                }
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "pos-essential-api-server": {
+                        "color": "green",
+                        "index": 4,
+                        "text": "API Server"
+                      },
+                      "pos-essential-discovery-controller": {
+                        "color": "purple",
+                        "index": 3,
+                        "text": "Discovery Controller"
+                      },
+                      "pos-essential-idl": {
+                        "color": "#0e4e87",
+                        "index": 6,
+                        "text": "IDL"
+                      },
+                      "pos-essential-ioworker": {
+                        "color": "semi-dark-orange",
+                        "index": 1,
+                        "text": "IO Worker"
+                      },
+                      "pos-essential-orchestrator": {
+                        "color": "semi-dark-blue",
+                        "index": 0,
+                        "text": "Orchestrator"
+                      },
+                      "pos-essential-ssd-anomaly-detector": {
+                        "color": "#483377",
+                        "index": 5,
+                        "text": "SSD Anomaly Detector"
+                      },
+                      "pos-essential-upgrade-agent": {
+                        "color": "#808080",
+                        "index": 2,
+                        "text": "Upgrade Agent"
+                      },
+                      "pos-essential-workflow": {
+                        "color": "#a9d877",
+                        "index": 7,
+                        "text": "Workflow "
+                      }
+                    },
+                    "type": "value"
+                  }
+                ]
+              },
+              {
+                "id": "custom.align",
+                "value": "center"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "오래된 정도"
+            },
+            "properties": [
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "1일 지남": {
+                        "color": "red",
+                        "index": 2
+                      },
+                      "4시간 이내": {
+                        "color": "blue",
+                        "index": 0
+                      },
+                      "4시간 지남": {
+                        "color": "yellow",
+                        "index": 1
+                      }
+                    },
+                    "type": "value"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "PR 이름"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 250
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 12,
+        "x": 12,
+        "y": 6
+      },
+      "id": 7,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "10.0.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "d3306be6-3a4d-4eed-be03-233f4661756e"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "select\r\n    repos.name AS \"리포지토리\",\r\n    prs.pr_name AS \"PR 이름\",\r\n    prs.base_branch AS \"머지 대상\",\r\n    review_status.status AS \"리뷰 상태\",\r\n    CASE\r\n           WHEN EXTRACT(EPOCH FROM (NOW() - prs.created_at)) / 3600 > 24 THEN '1일 지남'\r\n           WHEN EXTRACT(EPOCH FROM (NOW() - prs.created_at)) / 3600 > 4 THEN '4시간 지남'\r\n           ELSE '4시간 이내'\r\n    END AS \"오래된 정도\",\r\n    prs.html_url AS \"리뷰 하러 가기\"\r\nfrom prs\r\n         INNER JOIN review_status\r\n                    ON prs.pr_id = review_status.pr_id\r\n                        AND prs.repo_id = review_status.repo_id\r\n                        AND prs.author != review_status.reviewer\r\n         INNER JOIN users\r\n                    ON users.github_id = review_status.reviewer\r\n         INNER JOIN repos\r\n                    ON repos.id = prs.repo_id\r\nwhere prs.is_closed = false and users.name = '임동혁'\r\nORDER BY prs.created_at DESC\r\n",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "리뷰 대시보드",
+      "transformations": [],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "f8268498-6b46-41b4-9285-37de087ad791"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-blues"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "color-background"
+            },
+            "inspect": false
+          },
+          "mappings": [
+            {
+              "options": {
+                "approved": {
+                  "color": "green",
+                  "index": 0,
+                  "text": "리뷰 완료"
+                },
+                "change_requested": {
+                  "color": "orange",
+                  "index": 2,
+                  "text": "코드 반영 요청 상태"
+                },
+                "commented": {
+                  "color": "yellow",
+                  "index": 1,
+                  "text": "추가 리뷰 필요"
+                },
+                "pending": {
+                  "color": "red",
+                  "index": 3,
+                  "text": "리뷰 필요"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "리뷰 하러 가기"
+            },
+            "properties": [
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "targetBlank": true,
+                    "title": "바로가기",
+                    "url": "${__data.fields.링크}"
+                  }
+                ]
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "auto"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "리포지토리"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "palette-classic"
+                }
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "pos-essential-api-server": {
+                        "color": "green",
+                        "index": 4,
+                        "text": "API Server"
+                      },
+                      "pos-essential-discovery-controller": {
+                        "color": "purple",
+                        "index": 3,
+                        "text": "Discovery Controller"
+                      },
+                      "pos-essential-idl": {
+                        "color": "#0e4e87",
+                        "index": 6,
+                        "text": "IDL"
+                      },
+                      "pos-essential-ioworker": {
+                        "color": "semi-dark-orange",
+                        "index": 1,
+                        "text": "IO Worker"
+                      },
+                      "pos-essential-orchestrator": {
+                        "color": "semi-dark-blue",
+                        "index": 0,
+                        "text": "Orchestrator"
+                      },
+                      "pos-essential-ssd-anomaly-detector": {
+                        "color": "#483377",
+                        "index": 5,
+                        "text": "SSD Anomaly Detector"
+                      },
+                      "pos-essential-upgrade-agent": {
+                        "color": "#808080",
+                        "index": 2,
+                        "text": "Upgrade Agent"
+                      },
+                      "pos-essential-workflow": {
+                        "color": "#a9d877",
+                        "index": 7,
+                        "text": "Workflow "
+                      }
+                    },
+                    "type": "value"
+                  }
+                ]
+              },
+              {
+                "id": "custom.align",
+                "value": "center"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "오래된 정도"
+            },
+            "properties": [
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "1일 지남": {
+                        "color": "red",
+                        "index": 2
+                      },
+                      "4시간 이내": {
+                        "color": "blue",
+                        "index": 0
+                      },
+                      "4시간 지남": {
+                        "color": "yellow",
+                        "index": 1
+                      }
+                    },
+                    "type": "value"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "PR 이름"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 250
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 12,
+        "x": 0,
+        "y": 12
+      },
+      "id": 4,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "10.0.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "d3306be6-3a4d-4eed-be03-233f4661756e"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "select\r\n    repos.name AS \"리포지토리\",\r\n    prs.pr_name AS \"PR 이름\",\r\n    prs.base_branch AS \"머지 대상\",\r\n    review_status.status AS \"리뷰 상태\",\r\n    CASE\r\n           WHEN EXTRACT(EPOCH FROM (NOW() - prs.created_at)) / 3600 > 24 THEN '1일 지남'\r\n           WHEN EXTRACT(EPOCH FROM (NOW() - prs.created_at)) / 3600 > 4 THEN '4시간 지남'\r\n           ELSE '4시간 이내'\r\n    END AS \"오래된 정도\",\r\n    prs.html_url AS \"리뷰 하러 가기\"\r\nfrom prs\r\n         INNER JOIN review_status\r\n                    ON prs.pr_id = review_status.pr_id\r\n                        AND prs.repo_id = review_status.repo_id\r\n                        AND prs.author != review_status.reviewer\r\n         INNER JOIN users\r\n                    ON users.github_id = review_status.reviewer\r\n         INNER JOIN repos\r\n                    ON repos.id = prs.repo_id\r\nwhere prs.is_closed = false and users.name = '양희성'\r\nORDER BY prs.created_at DESC\r\n",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "리뷰 대시보드",
+      "transformations": [],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "f8268498-6b46-41b4-9285-37de087ad791"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-blues"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "color-background"
+            },
+            "inspect": false
+          },
+          "mappings": [
+            {
+              "options": {
+                "approved": {
+                  "color": "green",
+                  "index": 0,
+                  "text": "리뷰 완료"
+                },
+                "change_requested": {
+                  "color": "orange",
+                  "index": 2,
+                  "text": "코드 반영 요청 상태"
+                },
+                "commented": {
+                  "color": "yellow",
+                  "index": 1,
+                  "text": "추가 리뷰 필요"
+                },
+                "pending": {
+                  "color": "red",
+                  "index": 3,
+                  "text": "리뷰 필요"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "리뷰 하러 가기"
+            },
+            "properties": [
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "targetBlank": true,
+                    "title": "바로가기",
+                    "url": "${__data.fields.링크}"
+                  }
+                ]
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "auto"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "리포지토리"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "palette-classic"
+                }
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "pos-essential-api-server": {
+                        "color": "green",
+                        "index": 4,
+                        "text": "API Server"
+                      },
+                      "pos-essential-discovery-controller": {
+                        "color": "purple",
+                        "index": 3,
+                        "text": "Discovery Controller"
+                      },
+                      "pos-essential-idl": {
+                        "color": "#0e4e87",
+                        "index": 6,
+                        "text": "IDL"
+                      },
+                      "pos-essential-ioworker": {
+                        "color": "semi-dark-orange",
+                        "index": 1,
+                        "text": "IO Worker"
+                      },
+                      "pos-essential-orchestrator": {
+                        "color": "semi-dark-blue",
+                        "index": 0,
+                        "text": "Orchestrator"
+                      },
+                      "pos-essential-ssd-anomaly-detector": {
+                        "color": "#483377",
+                        "index": 5,
+                        "text": "SSD Anomaly Detector"
+                      },
+                      "pos-essential-upgrade-agent": {
+                        "color": "#808080",
+                        "index": 2,
+                        "text": "Upgrade Agent"
+                      },
+                      "pos-essential-workflow": {
+                        "color": "#a9d877",
+                        "index": 7,
+                        "text": "Workflow "
+                      }
+                    },
+                    "type": "value"
+                  }
+                ]
+              },
+              {
+                "id": "custom.align",
+                "value": "center"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "오래된 정도"
+            },
+            "properties": [
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "1일 지남": {
+                        "color": "red",
+                        "index": 2
+                      },
+                      "4시간 이내": {
+                        "color": "blue",
+                        "index": 0
+                      },
+                      "4시간 지남": {
+                        "color": "yellow",
+                        "index": 1
+                      }
+                    },
+                    "type": "value"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "PR 이름"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 250
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 12,
+        "x": 12,
+        "y": 12
+      },
+      "id": 3,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "10.0.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "d3306be6-3a4d-4eed-be03-233f4661756e"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "select\r\n    repos.name AS \"리포지토리\",\r\n    prs.pr_name AS \"PR 이름\",\r\n    prs.base_branch AS \"머지 대상\",\r\n    review_status.status AS \"리뷰 상태\",\r\n    CASE\r\n           WHEN EXTRACT(EPOCH FROM (NOW() - prs.created_at)) / 3600 > 24 THEN '1일 지남'\r\n           WHEN EXTRACT(EPOCH FROM (NOW() - prs.created_at)) / 3600 > 4 THEN '4시간 지남'\r\n           ELSE '4시간 이내'\r\n    END AS \"오래된 정도\",\r\n    prs.html_url AS \"리뷰 하러 가기\"\r\nfrom prs\r\n         INNER JOIN review_status\r\n                    ON prs.pr_id = review_status.pr_id\r\n                        AND prs.repo_id = review_status.repo_id\r\n                        AND prs.author != review_status.reviewer\r\n         INNER JOIN users\r\n                    ON users.github_id = review_status.reviewer\r\n         INNER JOIN repos\r\n                    ON repos.id = prs.repo_id\r\nwhere prs.is_closed = false and users.name = '김재훈'\r\nORDER BY prs.created_at DESC\r\n",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "리뷰 대시보드",
+      "transformations": [],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "f8268498-6b46-41b4-9285-37de087ad791"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-blues"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "color-background"
+            },
+            "inspect": false
+          },
+          "mappings": [
+            {
+              "options": {
+                "approved": {
+                  "color": "green",
+                  "index": 0,
+                  "text": "리뷰 완료"
+                },
+                "change_requested": {
+                  "color": "orange",
+                  "index": 2,
+                  "text": "코드 반영 요청 상태"
+                },
+                "commented": {
+                  "color": "yellow",
+                  "index": 1,
+                  "text": "추가 리뷰 필요"
+                },
+                "pending": {
+                  "color": "red",
+                  "index": 3,
+                  "text": "리뷰 필요"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "리뷰 하러 가기"
+            },
+            "properties": [
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "targetBlank": true,
+                    "title": "바로가기",
+                    "url": "${__data.fields.링크}"
+                  }
+                ]
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "auto"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "리포지토리"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "palette-classic"
+                }
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "pos-essential-api-server": {
+                        "color": "green",
+                        "index": 4,
+                        "text": "API Server"
+                      },
+                      "pos-essential-discovery-controller": {
+                        "color": "purple",
+                        "index": 3,
+                        "text": "Discovery Controller"
+                      },
+                      "pos-essential-idl": {
+                        "color": "#0e4e87",
+                        "index": 6,
+                        "text": "IDL"
+                      },
+                      "pos-essential-ioworker": {
+                        "color": "semi-dark-orange",
+                        "index": 1,
+                        "text": "IO Worker"
+                      },
+                      "pos-essential-orchestrator": {
+                        "color": "semi-dark-blue",
+                        "index": 0,
+                        "text": "Orchestrator"
+                      },
+                      "pos-essential-ssd-anomaly-detector": {
+                        "color": "#483377",
+                        "index": 5,
+                        "text": "SSD Anomaly Detector"
+                      },
+                      "pos-essential-upgrade-agent": {
+                        "color": "#808080",
+                        "index": 2,
+                        "text": "Upgrade Agent"
+                      },
+                      "pos-essential-workflow": {
+                        "color": "#a9d877",
+                        "index": 7,
+                        "text": "Workflow "
+                      }
+                    },
+                    "type": "value"
+                  }
+                ]
+              },
+              {
+                "id": "custom.align",
+                "value": "center"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "오래된 정도"
+            },
+            "properties": [
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "1일 지남": {
+                        "color": "red",
+                        "index": 2
+                      },
+                      "4시간 이내": {
+                        "color": "blue",
+                        "index": 0
+                      },
+                      "4시간 지남": {
+                        "color": "yellow",
+                        "index": 1
+                      }
+                    },
+                    "type": "value"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "PR 이름"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 250
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 12,
+        "x": 0,
+        "y": 18
+      },
+      "id": 5,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "10.0.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "d3306be6-3a4d-4eed-be03-233f4661756e"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "select\r\n    repos.name AS \"리포지토리\",\r\n    prs.pr_name AS \"PR 이름\",\r\n    prs.base_branch AS \"머지 대상\",\r\n    review_status.status AS \"리뷰 상태\",\r\n    CASE\r\n           WHEN EXTRACT(EPOCH FROM (NOW() - prs.created_at)) / 3600 > 24 THEN '1일 지남'\r\n           WHEN EXTRACT(EPOCH FROM (NOW() - prs.created_at)) / 3600 > 4 THEN '4시간 지남'\r\n           ELSE '4시간 이내'\r\n    END AS \"오래된 정도\",\r\n    prs.html_url AS \"리뷰 하러 가기\"\r\nfrom prs\r\n         INNER JOIN review_status\r\n                    ON prs.pr_id = review_status.pr_id\r\n                        AND prs.repo_id = review_status.repo_id\r\n                        AND prs.author != review_status.reviewer\r\n         INNER JOIN users\r\n                    ON users.github_id = review_status.reviewer\r\n         INNER JOIN repos\r\n                    ON repos.id = prs.repo_id\r\nwhere prs.is_closed = false and users.name = '권세준'\r\nORDER BY prs.created_at DESC\r\n",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "리뷰 대시보드",
+      "transformations": [],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "f8268498-6b46-41b4-9285-37de087ad791"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-blues"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "color-background"
+            },
+            "inspect": false
+          },
+          "mappings": [
+            {
+              "options": {
+                "approved": {
+                  "color": "green",
+                  "index": 0,
+                  "text": "리뷰 완료"
+                },
+                "change_requested": {
+                  "color": "orange",
+                  "index": 2,
+                  "text": "코드 반영 요청 상태"
+                },
+                "commented": {
+                  "color": "yellow",
+                  "index": 1,
+                  "text": "추가 리뷰 필요"
+                },
+                "pending": {
+                  "color": "red",
+                  "index": 3,
+                  "text": "리뷰 필요"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "리뷰 하러 가기"
+            },
+            "properties": [
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "targetBlank": true,
+                    "title": "바로가기",
+                    "url": "${__data.fields.링크}"
+                  }
+                ]
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "auto"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "리포지토리"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "palette-classic"
+                }
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "pos-essential-api-server": {
+                        "color": "green",
+                        "index": 4,
+                        "text": "API Server"
+                      },
+                      "pos-essential-discovery-controller": {
+                        "color": "purple",
+                        "index": 3,
+                        "text": "Discovery Controller"
+                      },
+                      "pos-essential-idl": {
+                        "color": "#0e4e87",
+                        "index": 6,
+                        "text": "IDL"
+                      },
+                      "pos-essential-ioworker": {
+                        "color": "semi-dark-orange",
+                        "index": 1,
+                        "text": "IO Worker"
+                      },
+                      "pos-essential-orchestrator": {
+                        "color": "semi-dark-blue",
+                        "index": 0,
+                        "text": "Orchestrator"
+                      },
+                      "pos-essential-ssd-anomaly-detector": {
+                        "color": "#483377",
+                        "index": 5,
+                        "text": "SSD Anomaly Detector"
+                      },
+                      "pos-essential-upgrade-agent": {
+                        "color": "#808080",
+                        "index": 2,
+                        "text": "Upgrade Agent"
+                      },
+                      "pos-essential-workflow": {
+                        "color": "#a9d877",
+                        "index": 7,
+                        "text": "Workflow "
+                      }
+                    },
+                    "type": "value"
+                  }
+                ]
+              },
+              {
+                "id": "custom.align",
+                "value": "center"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "오래된 정도"
+            },
+            "properties": [
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "1일 지남": {
+                        "color": "red",
+                        "index": 2
+                      },
+                      "4시간 이내": {
+                        "color": "blue",
+                        "index": 0
+                      },
+                      "4시간 지남": {
+                        "color": "yellow",
+                        "index": 1
+                      }
+                    },
+                    "type": "value"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "PR 이름"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 250
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 12,
+        "x": 12,
+        "y": 18
+      },
+      "id": 8,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "10.0.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "d3306be6-3a4d-4eed-be03-233f4661756e"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "select\r\n    repos.name AS \"리포지토리\",\r\n    prs.pr_name AS \"PR 이름\",\r\n    prs.base_branch AS \"머지 대상\",\r\n    review_status.status AS \"리뷰 상태\",\r\n    CASE\r\n           WHEN EXTRACT(EPOCH FROM (NOW() - prs.created_at)) / 3600 > 24 THEN '1일 지남'\r\n           WHEN EXTRACT(EPOCH FROM (NOW() - prs.created_at)) / 3600 > 4 THEN '4시간 지남'\r\n           ELSE '4시간 이내'\r\n    END AS \"오래된 정도\",\r\n    prs.html_url AS \"리뷰 하러 가기\"\r\nfrom prs\r\n         INNER JOIN review_status\r\n                    ON prs.pr_id = review_status.pr_id\r\n                        AND prs.repo_id = review_status.repo_id\r\n                        AND prs.author != review_status.reviewer\r\n         INNER JOIN users\r\n                    ON users.github_id = review_status.reviewer\r\n         INNER JOIN repos\r\n                    ON repos.id = prs.repo_id\r\nwhere prs.is_closed = false and users.name = '$NAME'\r\nORDER BY prs.created_at DESC\r\n",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "리뷰 대시보드",
+      "transformations": [],
+      "type": "table"
+    }
+  ],
+  "refresh": "",
+  "schemaVersion": 38,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "전체 대시보드 (ORC)",
+  "uid": "bb6b9b39-b63d-4130-be17-e5406f2307fc",
+  "version": 2,
+  "weekStart": ""
+}

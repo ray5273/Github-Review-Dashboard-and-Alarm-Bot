@@ -1,8 +1,6 @@
 import "reflect-metadata";
-import {initDatabase} from "../database";
 import {Reviews} from '../entity/reviews.entity';
 import {DataSource, Repository} from "typeorm";
-import {Repos} from "../entity/repo.entity";
 
 
 export class ReviewService {
@@ -32,7 +30,6 @@ export class ReviewService {
     async getReviewListByReviewerAndPrIdAndRepoId(reviewer: string, prId: number, repoId: number) : Promise<Reviews[]>{
         return this.instance.find({where: {reviewer: reviewer, pr_id: prId, repo_id: repoId}})
     }
-
 
 
     async CreateReviews(githubReviewResponse: any[], prId: number, repoId : number) : Promise<Reviews[]>{

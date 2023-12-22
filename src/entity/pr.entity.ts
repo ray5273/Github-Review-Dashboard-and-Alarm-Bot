@@ -22,4 +22,13 @@ export class Prs {
 
     @Column()
     created_at!: Date
+
+    @Column()
+    html_url!: string
+
+    @Column("text", {array: true})
+    requested_reviewers!: string[]
+
+    @Column("text", {array: true})
+    requested_teams!: string[]
 }

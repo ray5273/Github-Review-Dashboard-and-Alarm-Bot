@@ -37,7 +37,11 @@ async function main() {
             for (let pr of prs) {
                 const reviewLists = await sendGithubReviewsRequest(repo.owner, repo.name, pr.pr_id);
                 await reviewInstance.CreateReviews(reviewLists, pr.pr_id, repo.id);
-                const statuses = await reviewStatusInstance.CreateReviewStatus(users, pr.pr_id, repo.id);
+
+                const repoList = await repoInstance.getRepoListByRepoId(repo.id)
+                // pr id에 맞는 requested reviewer 파싱하기
+                const reviewers = prInstance.getRequestedReviewersInPr(pr, users, repoList)
+                const statuses = await reviewStatusInstance.CreateReviewStatus(reviewers, pr.pr_id, repo.id);
             }
         }
     } catch (error) {

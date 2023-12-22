@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "experimentalDecorators": true,
-    "target": "es5",                         // 컴파일된 JavaScript가 지원할 ECMAScript 버전
+    "target": "es2015",                      // 컴파일된 JavaScript가 지원할 ECMAScript 버전
     "module": "commonjs",                    // 사용할 모듈 시스템
     "outDir": "./dist",                      // 컴파일된 파일들이 위치할 디렉토리
     "rootDir": "./src",                      // TypeScript 소스 파일들이 위치할 루트 디렉토리

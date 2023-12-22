@@ -1,5 +1,4 @@
 import "reflect-metadata";
-import {initDatabase} from "../database";
 import {Repos} from '../entity/repo.entity';
 import {Repository, DataSource} from "typeorm";
 

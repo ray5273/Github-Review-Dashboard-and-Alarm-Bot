@@ -15,7 +15,7 @@ function getRateLimitURL() {
 }
 
 function getListOfPullRequestsURL(owner: string, repo: string) {
-    return `/repos/${owner}/${repo}/pulls?state=all`;
+    return `/repos/${owner}/${repo}/pulls?state`;
 }
 
 function getReviewsURL(owner: string, repo: string, pr_number: number) {
