@@ -1,8 +1,8 @@
 // src/controller/UserController.ts
 import { Request, Response } from "express";
-import { AppDataSource } from "../database";
-import { RepoService } from "../service/repo.service";
-import { Repos } from "../entity/repo.entity";
+import { AppDataSource } from "../../../shared/src/db/database";
+import { RepoService } from "../../../shared/src/db/service/repo.service";
+import { Repos } from "../../../shared/src/db/entity/repo.entity";
 
 export const createRepo = async (req: Request, res: Response) => {
     try {

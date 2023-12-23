@@ -1,8 +1,8 @@
 // src/controller/UserController.ts
 import { Request, Response } from "express";
-import { AppDataSource } from "../database";
-import { UserService } from "../service/user.service";
-import { Users } from "../entity/user.entity";
+import { AppDataSource } from "../../../shared/src/db/database";
+import { UserService } from "../../../shared/src/db/service/user.service";
+import { Users } from "../../../shared/src/db/entity/user.entity";
 
 export const createUser = async (req: Request, res: Response) => {
     try {

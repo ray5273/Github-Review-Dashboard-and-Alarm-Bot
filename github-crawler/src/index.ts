@@ -1,11 +1,11 @@
 import "reflect-metadata";
 import { sendGithubRateLimitRequest, sendGithubPullRequestsRequest, sendGithubReviewsRequest } from './githubRestAPIRequest';
-import { initDatabase } from './database';
-import { UserService } from "./service/user.service";
-import { PrService} from "./service/pr.service";
-import { ReviewService } from "./service/review.service";
-import { RepoService } from "./service/repo.service";
-import { ReviewStatusService } from "./service/reviewStatus.service";
+import { initDatabase } from '../../shared/src/db/database';
+import { UserService } from "../../shared/src/db/service/user.service";
+import { PrService} from "../../shared/src/db/service/pr.service";
+import { ReviewService } from "../../shared/src/db/service/review.service";
+import { RepoService } from "../../shared/src/db/service/repo.service";
+import { ReviewStatusService } from "../../shared/src/db/service/reviewStatus.service";
 
 async function main() {
     console.log("This is github rest api request service");

@@ -12,6 +12,50 @@ Review Dashboard for teams
 ![image](https://github.com/ray5273/Github-Review-Dashboard-and-Alarm-Bot/assets/8529112/b5abad27-e4f4-4178-847e-2647e237fea3)
 
 
+### Review Dashboard Structure
+
+```text
+├── README.md 
+├── api-server 
+│ ├── controller 
+│ ├── routes 
+│ ├── app.ts (Express application setup) 
+│ ├── server.ts (Server startup script) 
+├── github-crawler
+│ ├── index.ts (Crawler startup script)
+│ ├── githubRestAPIRequest.ts (Github Rest API Request) 
+├── shared 
+│ ├── db 
+│ │ ├── entity 
+│ │ ├── service 
+│ ├── database.ts (Database setup)
+```
+
+## Getting Started
+
+### Prerequisites
+
+- [Node.js](https://nodejs.org/en/) 
+- [npm](https://www.npmjs.com/) 
+- [TypeScript](https://www.typescriptlang.org/)
+- [PostgreSQL](https://www.postgresql.org/) (15.3)
+
+### How to run
+
+1. How to run the crawler
+
+```bash
+ts-node github-crawler/src/index.ts
+```
+
+2. How to run the api-server
+
+API server will run on port 8080 by default.
+
+```bash
+ts-node api-server/src/server.ts
+```
+
 ## Plan
 
 - [x] Create a new project

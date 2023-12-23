@@ -1,6 +1,6 @@
 import "reflect-metadata";
-import {Prs} from '../entity/pr.entity';
 import {DataSource, Repository} from "typeorm";
+import {Prs} from '../entity/pr.entity';
 import {Users} from "../entity/user.entity";
 import {Repos} from "../entity/repo.entity";
 

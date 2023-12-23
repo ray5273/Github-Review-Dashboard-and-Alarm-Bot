@@ -1,11 +1,9 @@
 import "reflect-metadata";
-import {initDatabase} from "../database";
 import {ReviewService} from "./review.service";
 import {Users} from "../entity/user.entity";
 import {Reviews} from '../entity/reviews.entity';
 import {ReviewStatus} from '../entity/reviewStatus.entity';
 import {DataSource, Repository} from "typeorm";
-import {Repos} from "../entity/repo.entity";
 
 
 const STATUS_PENDING = "pending";
