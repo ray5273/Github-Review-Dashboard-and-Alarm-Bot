@@ -40,15 +40,36 @@ Review Dashboard for teams
 - [TypeScript](https://www.typescriptlang.org/)
 - [PostgreSQL](https://www.postgresql.org/) (15.3)
 
-### How to run
+## Programs
 
-1. How to run the crawler
+1. [Crawler](#1-run-the-crawler)
+2. [API Server](#2-run-the-api-server)
+
+## How to run
+
+### 0. Add the following environment variables to the `.env` file in the root directory.
+
+- GITHUB_TOKEN: Github token to access the Github API
+- POSTGRES_USER: Postgres user name
+- POSTGRES_PASSWORD: Postgres password
+- POSTGRES_DB: Postgres database name
+- POSTGRES_HOST: Postgres host
+
+```bash
+GITHUB_TOKEN=
+POSTGRES_USER=
+POSTGRES_PASSWORD=
+POSTGRES_DB=
+POSTGRES_HOST=
+````
+
+### 1. Run the crawler
 
 ```bash
 ts-node github-crawler/src/index.ts
 ```
 
-2. How to run the api-server
+### 2. Run the api-server
 
 API server will run on port 8080 by default.
 
