@@ -30,7 +30,7 @@ export const UsersFormComponent: React.FC<UsersFormComponentProps> = ({ setData 
             company_github_id: company_github_id,
             team_name: team_name
         }
-        await axios.post(`http://localhost:8080/users`, body)
+        await axios.post(`${process.env.REACT_APP_DB_API_SERVER}/users`, body)
             .then((res : AxiosResponse<Users[]>) => {
                 setData(res.data);
             }).catch((err) => {

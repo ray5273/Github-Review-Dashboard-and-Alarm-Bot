@@ -18,14 +18,14 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       if (placement === 'users') {
-        await axios.get(`http://localhost:8080/users`)
+        await axios.get(`${process.env.REACT_APP_DB_API_SERVER}/users`)
             .then((res : AxiosResponse<Users[]>) => {
               setUsers(res.data);
             }).catch((err) => {
               console.log(err);
             });
       }else if (placement === 'repos') {
-          await axios.get(`http://localhost:8080/repos`)
+          await axios.get(`${process.env.REACT_APP_DB_API_SERVER}/repos`)
               .then((res: AxiosResponse<Repos[]>) => {
                   setRepos(res.data);
               }).catch((err) => {

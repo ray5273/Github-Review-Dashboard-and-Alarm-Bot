@@ -7,13 +7,14 @@ import {Repos} from "../../../shared/src/db/entity/repo.entity";
 import axios, {AxiosResponse} from "axios";
 
 
+
 interface RepoTableColumnPinningProps {
     rows: Repos[];
 }
 
 export default function RepoTableColumnPinning({rows}: RepoTableColumnPinningProps) {
     const handleDelete = (id: number) => () => {
-        axios.delete(`http://localhost:8080/repos/${id}`)
+        axios.delete(`${process.env.REACT_APP_DB_API_SERVER}/repos/${id}`)
             .then((response: AxiosResponse) => {
                 console.log(response);
             })

@@ -15,7 +15,7 @@ interface UserTableColumnPinningProps {
 
 export default function UserTableColumnPinning({rows}: UserTableColumnPinningProps) {
     const handleDelete = (name:string, company_id: string) => () => {
-        axios.delete(`http://localhost:8080/users/${name}/${company_id}`)
+        axios.delete(`${process.env.REACT_APP_DB_API_SERVER}/users/${name}/${company_id}`)
             .then((response: AxiosResponse) => {
                 console.log(response);
             })

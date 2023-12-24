@@ -29,7 +29,7 @@ export const RepoFormComponent: React.FC<RepoFormComponentProps> = ({ setData })
             name: repo,
             is_internal: is_internal
         }
-        await axios.post(`http://localhost:8080/repos`, body)
+        await axios.post(`${process.env.REACT_APP_DB_API_SERVER}/repos`, body)
             .then((res : AxiosResponse<Repos[]>) => {
                 setData(res.data);
             }).catch((err) => {
