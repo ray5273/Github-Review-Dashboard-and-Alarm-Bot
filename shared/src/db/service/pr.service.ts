@@ -22,6 +22,11 @@ export class PrService {
         return this.instance.find({where: {pr_id: prId}})
     }
 
+    async deletePrsByRepoId(repoId: number) : Promise<void>{
+        let prs = await this.instance.find({where: {repo_id: repoId}});
+        await this.instance.remove(prs);
+    }
+
     async CreatePrs(githubPrResponse: any[], repoId: number) : Promise<Prs[]>{
         var prs: Prs[] = [];
         for (let pr of githubPrResponse) {

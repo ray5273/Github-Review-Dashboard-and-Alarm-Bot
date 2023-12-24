@@ -28,6 +28,9 @@ export const getRepos = async (req: Request, res: Response) => {
 
 export const deleteRepo = async (req: Request, res: Response) => {
     const repoInstance = new RepoService(AppDataSource);
-    const results = await repoInstance.deleteRepo(Number(req.params.id))
+    const results = await repoInstance.deleteRepo(Number(req.params.id)).catch((err) => {
+        console.log(err)
+    })
+    console.log("deleted repo : ", results)
     return res.send(results);
 }

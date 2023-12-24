@@ -29,8 +29,11 @@ export const getUser = async (req: Request, res: Response) => {
     return res.send(results);
 }
 
-// export const deleteUser = async (req: Request, res: Response) => {
-//     const userInstance = new UserService(AppDataSource);
-//     const results = await userInstance.deleteUser(req.params.id)
-//     return res.send(results);
-// }
+export const deleteUser = async (req: Request, res: Response) => {
+    const userInstance = new UserService(AppDataSource);
+    const results = await userInstance.deleteUser(req.params.name, req.params.company_id).catch((err) => {
+        console.log(err)
+    })
+    console.log("deleted user : ", results)
+    return res.send(results);
+}

@@ -2,18 +2,16 @@ import * as React from 'react';
 import Box from '@mui/joy/Box';
 import Button from '@mui/joy/Button';
 import Table from '@mui/joy/Table';
-import Typography from '@mui/joy/Typography';
 import Sheet from '@mui/joy/Sheet';
-import { useColorScheme } from "@mui/joy/styles";
-import {Repos} from "../../shared/src/db/entity/repo.entity";
+import {Repos} from "../../../shared/src/db/entity/repo.entity";
 import axios, {AxiosResponse} from "axios";
 
 
-interface TableColumnPinningProps {
+interface RepoTableColumnPinningProps {
     rows: Repos[];
 }
 
-export default function TableColumnPinning({rows}: TableColumnPinningProps) {
+export default function RepoTableColumnPinning({rows}: RepoTableColumnPinningProps) {
     const handleDelete = (id: number) => () => {
         axios.delete(`http://localhost:8080/repos/${id}`)
             .then((response: AxiosResponse) => {

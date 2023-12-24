@@ -12,6 +12,7 @@ Review Dashboard for teams
 ![image](https://github.com/ray5273/Github-Review-Dashboard-and-Alarm-Bot/assets/8529112/b5abad27-e4f4-4178-847e-2647e237fea3)
 
 
+
 ### Review Dashboard Structure
 
 ```text
@@ -21,6 +22,10 @@ Review Dashboard for teams
 │ ├── routes 
 │ ├── app.ts (Express application setup) 
 │ ├── server.ts (Server startup script) 
+├── frontend
+│ ├── App.tsx (React application setup)
+│ ├── index.tsx (React application startup script)
+│ ├── components
 ├── github-crawler
 │ ├── index.ts (Crawler startup script)
 │ ├── githubRestAPIRequest.ts (Github Rest API Request) 
@@ -35,19 +40,51 @@ Review Dashboard for teams
 
 ### Prerequisites
 
-- [Node.js](https://nodejs.org/en/) 
-- [npm](https://www.npmjs.com/) 
+- [Node.js](https://nodejs.org/en/) (>= 20.9.0)
+- [npm](https://www.npmjs.com/) (>= 10.1.0)
 - [TypeScript](https://www.typescriptlang.org/)
 - [PostgreSQL](https://www.postgresql.org/) (15.3)
+- [Podman](https://podman.io/) (>= 4.7.2)
+- Podman-Compose (1.0.6)
+- [Grafana](https://grafana.com/) (10.0.0)
 
 ## Programs
 
 1. [Crawler](#1-run-the-crawler)
 2. [API Server](#2-run-the-api-server)
+3. [Frontend](#3-run-the-frontend-server)
 
 ## How to run
 
-### 0. Add the following environment variables to the `.env` file in the root directory.
+
+## installation and setup
+
+Make sure you have installed the prerequisites.    
+
+### 1. clone the repository and install the dependencies
+```bash
+git clone https://github.com/ray5273/Github-Review-Dashboard-and-Alarm-Bot
+npm install
+```
+
+### 2. Start the database
+
+```bash
+cd db_deploy
+podman-compose build 
+podman-compose up -d
+```
+
+### 3. Start the Grafana
+
+```bash
+cd dashboard_deploy
+podman-compose build
+podman-compose up -d
+```
+
+
+### 4. Add the following environment variables to the `.env` file in the root directory.
 
 - GITHUB_TOKEN: Github token to access the Github API
 - POSTGRES_USER: Postgres user name
@@ -63,6 +100,8 @@ POSTGRES_DB=
 POSTGRES_HOST=
 ````
 
+## Run the programs
+
 ### 1. Run the crawler
 
 ```bash
@@ -77,7 +116,19 @@ API server will run on port 8080 by default.
 ts-node api-server/src/server.ts
 ```
 
-## Plan
+### 3. Run the Frontend server
+
+Frontend server will run on port 3000 by default. 
+
+**But you must set the port environment variable to 8081.**
+
+```bash
+cd frontend
+npm install
+port=8081 npm start
+```
+
+## Plans
 
 - [x] Create a new project
 - [x] Create a crawler to get the data from Github with the following information:
@@ -89,7 +140,9 @@ ts-node api-server/src/server.ts
   - [x] PRs
   - [x] Reviews
   - [x] Comments
-- [ ] Create an admin page to manage the data
-  - Newly added Users
-  - Newly added Repositories
+- [x] Create an admin page to manage the data
+  - [x] Newly added Users
+  - [x] Newly added Repositories
+  - [x] Delete Users
+  - [x] Delete Repositories
     

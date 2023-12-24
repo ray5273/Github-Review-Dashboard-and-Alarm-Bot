@@ -19,7 +19,20 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 3,
-  "links": [],
+  "links": [
+    {
+      "asDropdown": false,
+      "icon": "external link",
+      "includeVars": false,
+      "keepTime": false,
+      "tags": [],
+      "targetBlank": true,
+      "title": "User / Repository  추가",
+      "tooltip": "User / Repository  추가",
+      "type": "link",
+      "url": "http://localhost:8081/"
+    }
+  ],
   "liveNow": false,
   "panels": [
     {
@@ -93,7 +106,7 @@
                   {
                     "targetBlank": true,
                     "title": "바로가기",
-                    "url": "${__data.fields.링크}"
+                    "url": "${__data.fields[\"리뷰 하러 가기\"]}"
                   }
                 ]
               },
@@ -343,7 +356,7 @@
                   {
                     "targetBlank": true,
                     "title": "바로가기",
-                    "url": "${__data.fields.링크}"
+                    "url": "${__data.fields[\"리뷰 하러 가기\"]}"
                   }
                 ]
               },
@@ -593,7 +606,7 @@
                   {
                     "targetBlank": true,
                     "title": "바로가기",
-                    "url": "${__data.fields.링크}"
+                    "url": "${__data.fields[\"리뷰 하러 가기\"]}"
                   }
                 ]
               },
@@ -843,7 +856,7 @@
                   {
                     "targetBlank": true,
                     "title": "바로가기",
-                    "url": "${__data.fields.링크}"
+                    "url": "${__data.fields[\"리뷰 하러 가기\"]}"
                   }
                 ]
               },
@@ -1093,7 +1106,7 @@
                   {
                     "targetBlank": true,
                     "title": "바로가기",
-                    "url": "${__data.fields.링크}"
+                    "url": "${__data.fields[\"리뷰 하러 가기\"]}"
                   }
                 ]
               },
@@ -1343,7 +1356,7 @@
                   {
                     "targetBlank": true,
                     "title": "바로가기",
-                    "url": "${__data.fields.링크}"
+                    "url": "${__data.fields[\"리뷰 하러 가기\"]}"
                   }
                 ]
               },
@@ -1593,7 +1606,7 @@
                   {
                     "targetBlank": true,
                     "title": "바로가기",
-                    "url": "${__data.fields.링크}"
+                    "url": "${__data.fields[\"리뷰 하러 가기\"]}"
                   }
                 ]
               },
@@ -1843,7 +1856,7 @@
                   {
                     "targetBlank": true,
                     "title": "바로가기",
-                    "url": "${__data.fields.링크}"
+                    "url": "${__data.fields[\"리뷰 하러 가기\"]}"
                   }
                 ]
               },
@@ -2038,6 +2051,6 @@
   "timezone": "",
   "title": "전체 대시보드 (IOW)",
   "uid": "fa948206-7d40-4680-ac31-9d091ac0fb5c",
-  "version": 2,
+  "version": 11,
   "weekStart": ""
 }

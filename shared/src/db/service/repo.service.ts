@@ -1,6 +1,7 @@
 import "reflect-metadata";
 import {Repos} from '../entity/repo.entity';
 import {Repository, DataSource, DeleteResult} from "typeorm";
+import {PrService} from "./pr.service";
 
 
 export class RepoService {
@@ -38,9 +39,20 @@ export class RepoService {
 
     async deleteRepo(id: number): Promise<DeleteResult> {
         let repoEntity = await this.instance.findOne({where: {id: id}});
+
         if (repoEntity === null) {
             return Promise.reject("Repo not found");
         }
-        return this.instance.delete(repoEntity)
+        // Check if there are PRs that reference the repo
+        const prService = new PrService(this.instance.manager.connection);
+        const prs = await prService.getPrListByRepoId(id);
+        if (prs.length > 0) {
+            return Promise.reject("There are PRs that reference this repo");
+        }
+
+        // Delete the repo
+        return this.instance.delete(repoEntity).catch((err) => {
+            return Promise.reject(err);
+        })
     }
 }

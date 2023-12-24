@@ -19,7 +19,20 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 1,
-  "links": [],
+  "links": [
+    {
+      "asDropdown": false,
+      "icon": "external link",
+      "includeVars": false,
+      "keepTime": false,
+      "tags": [],
+      "targetBlank": true,
+      "title": "User / Repository  추가",
+      "tooltip": "User / Repository  추가",
+      "type": "link",
+      "url": "http://localhost:8081/"
+    }
+  ],
   "liveNow": false,
   "panels": [
     {
@@ -93,7 +106,7 @@
                   {
                     "targetBlank": true,
                     "title": "바로가기",
-                    "url": "${__data.fields.링크}"
+                    "url": "${__data.fields[\"리뷰 하러 가기\"]}"
                   }
                 ]
               },
@@ -122,6 +135,21 @@
                 "value": [
                   {
                     "options": {
+                      "pos-essential-api-server": {
+                        "color": "green",
+                        "index": 4,
+                        "text": "API Server"
+                      },
+                      "pos-essential-discovery-controller": {
+                        "color": "purple",
+                        "index": 3,
+                        "text": "Discovery Controller"
+                      },
+                      "pos-essential-idl": {
+                        "color": "#0e4e87",
+                        "index": 6,
+                        "text": "IDL"
+                      },
                       "pos-essential-ioworker": {
                         "color": "semi-dark-orange",
                         "index": 1,
@@ -131,6 +159,21 @@
                         "color": "semi-dark-blue",
                         "index": 0,
                         "text": "Orchestrator"
+                      },
+                      "pos-essential-ssd-anomaly-detector": {
+                        "color": "#483377",
+                        "index": 5,
+                        "text": "SSD Anomaly Detector"
+                      },
+                      "pos-essential-upgrade-agent": {
+                        "color": "#808080",
+                        "index": 2,
+                        "text": "Upgrade Agent"
+                      },
+                      "pos-essential-workflow": {
+                        "color": "#a9d877",
+                        "index": 7,
+                        "text": "Workflow "
                       }
                     },
                     "type": "value"
@@ -251,9 +294,13 @@
     "list": [
       {
         "current": {
-          "selected": true,
+          "selected": false,
           "text": "박상혁",
           "value": "박상혁"
+        },
+        "datasource": {
+          "type": "postgres",
+          "uid": "f8268498-6b46-41b4-9285-37de087ad791"
         },
         "definition": "select name from users",
         "hide": 0,
@@ -279,6 +326,6 @@
   "timezone": "",
   "title": "개인 리뷰 대시보드 (복사해서 쓰세요)",
   "uid": "c08fa7eb-950e-4c2f-bf5d-61cf3d28293a",
-  "version": 9,
+  "version": 13,
   "weekStart": ""
 }
