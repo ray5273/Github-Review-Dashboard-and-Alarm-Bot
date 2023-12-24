@@ -28,3 +28,9 @@ export const getUser = async (req: Request, res: Response) => {
     const results = await userInstance.getUserList()
     return res.send(results);
 }
+
+// export const deleteUser = async (req: Request, res: Response) => {
+//     const userInstance = new UserService(AppDataSource);
+//     const results = await userInstance.deleteUser(req.params.id)
+//     return res.send(results);
+// }

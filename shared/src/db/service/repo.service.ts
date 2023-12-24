@@ -1,6 +1,6 @@
 import "reflect-metadata";
 import {Repos} from '../entity/repo.entity';
-import {Repository, DataSource} from "typeorm";
+import {Repository, DataSource, DeleteResult} from "typeorm";
 
 
 export class RepoService {
@@ -26,7 +26,7 @@ export class RepoService {
     }
 
     async CreateRepos(name:string, isInternal : boolean, owner: string): Promise<Repos[]>{
-        var repos : Repos[] = [];
+        let repos : Repos[] = [];
         let repoEntity = new Repos();
         repoEntity.name = name;
         repoEntity.is_internal = isInternal;
@@ -34,5 +34,13 @@ export class RepoService {
         repos.push(repoEntity);
 
         return this.instance.save(repos);
+    }
+
+    async deleteRepo(id: number): Promise<DeleteResult> {
+        let repoEntity = await this.instance.findOne({where: {id: id}});
+        if (repoEntity === null) {
+            return Promise.reject("Repo not found");
+        }
+        return this.instance.delete(repoEntity)
     }
 }

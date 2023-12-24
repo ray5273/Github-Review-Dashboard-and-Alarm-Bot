@@ -6,6 +6,7 @@ import Typography from '@mui/joy/Typography';
 import Sheet from '@mui/joy/Sheet';
 import { useColorScheme } from "@mui/joy/styles";
 import {Repos} from "../../shared/src/db/entity/repo.entity";
+import axios, {AxiosResponse} from "axios";
 
 
 interface TableColumnPinningProps {
@@ -13,6 +14,16 @@ interface TableColumnPinningProps {
 }
 
 export default function TableColumnPinning({rows}: TableColumnPinningProps) {
+    const handleDelete = (id: number) => () => {
+        axios.delete(`http://localhost:8080/repos/${id}`)
+            .then((response: AxiosResponse) => {
+                console.log(response);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+
     return (
         <Box sx={{ width: '100%' }}>
             <Sheet
@@ -75,7 +86,7 @@ export default function TableColumnPinning({rows}: TableColumnPinningProps) {
                         <th style={{ width: 200 }}>Owner</th>
                         <th style={{ width: 200 }}>Repository Name&nbsp;</th>
                         <th style={{ width: 200 }}>Internal Repository&nbsp;</th>
-                        <th style={{ width: 200 }}>Edit/Delete&nbsp;</th>
+                        <th style={{ width: 200 }}>Delete&nbsp;</th>
                         <th
                             aria-label="last"
                             style={{ width: 'var(--Table-lastColumnWidth)' }}
@@ -91,10 +102,7 @@ export default function TableColumnPinning({rows}: TableColumnPinningProps) {
                             <td>{row.is_internal.toString()}</td>
                             <td>
                                 <Box sx={{ display: 'flex', gap: 1 }}>
-                                    <Button size="sm" variant="plain" color="neutral">
-                                        Edit
-                                    </Button>
-                                    <Button size="sm" variant="soft" color="danger">
+                                    <Button size="sm" variant="soft" color="danger"onClick={handleDelete(row.id)}>
                                         Delete
                                     </Button>
                                 </Box>

@@ -25,3 +25,9 @@ export const getRepos = async (req: Request, res: Response) => {
     const results = await repoInstance.getRepoList()
     return res.send(results);
 }
+
+export const deleteRepo = async (req: Request, res: Response) => {
+    const repoInstance = new RepoService(AppDataSource);
+    const results = await repoInstance.deleteRepo(Number(req.params.id))
+    return res.send(results);
+}

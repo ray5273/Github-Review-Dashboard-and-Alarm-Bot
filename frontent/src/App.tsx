@@ -16,6 +16,9 @@ import FormLabel from '@mui/joy/FormLabel';
 import FormHelperText from '@mui/joy/FormHelperText';
 import Input from '@mui/joy/Input';
 import Button from "@mui/joy/Button";
+import Radio from '@mui/joy/Radio';
+import RadioGroup from '@mui/joy/RadioGroup';
+
 
 
 function ColorSchemeToggle() {
@@ -55,9 +58,29 @@ function ColorSchemeToggle() {
 }
 function App() {
   const [data, setData] = useState<Repos[] | null>(null);
-    const [placement, setPlacement] = React.useState<
-        'users' | 'repos'
-    >('repos');
+  const [placement, setPlacement] = React.useState<'users' | 'repos'>('repos');
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        const data = new FormData(event.currentTarget);
+        const owner = data.get('owner');
+        const repo = data.get('repo');
+        const internal = data.get('internal');
+        var is_internal = false;
+        if (internal === 'true') {
+            is_internal = true;
+        }
+        const body = {
+            owner: owner,
+            name: repo,
+            is_internal: is_internal
+        }
+        await axios.post(`http://localhost:8080/repos`, body)
+            .then((res : AxiosResponse<Repos[]>) => {
+                setData(res.data);
+            }).catch((err) => {
+                console.log(err);
+            });
+    }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -101,20 +124,26 @@ function App() {
               </Tabs>
               <CssBaseline />
               <ColorSchemeToggle />
-              <TableColumnPinning rows={data} />;
-              <FormControl
-                id="Id"
-                required
-                size="sm"
-                color="primary">
-                <FormLabel>
-                  Create Repository
-                </FormLabel>
-                <Input placeholder="Owner"></Input>
-                <Input placeholder="Repository Name"></Input>
-                <Input placeholder="Internal"></Input>
-                <Button variant="solid">Create</Button>
-              </FormControl>
+              <TableColumnPinning rows={data} />
+              <form onSubmit={handleSubmit}>
+                  <FormControl
+                    id="Id"
+                    required
+                    size="sm"
+                    color="primary"
+                    sx={{ mt: 4, width: 400 }}>
+                    <FormLabel>
+                      Create Repository
+                    </FormLabel>
+                    <Input name='owner' placeholder="Owner"></Input>
+                    <Input name='repo' placeholder="Repository Name"></Input>
+                    <RadioGroup name='internal' defaultValue="true">
+                        <Radio value='true' label={'Internal Repository'} />
+                        <Radio value='false' label={'External Repository'} />
+                    </RadioGroup>
+                    <Button variant="solid" type="submit">Create</Button>
+                  </FormControl>
+              </form>
           </CssVarsProvider>
       </>
     )
