@@ -54,8 +54,11 @@ export const UsersFormComponent: React.FC<UsersFormComponentProps> = ({ setData 
                 <Input name='company_id' placeholder="company_id"></Input>
                 <Input name='company_github_id' placeholder="company_github_id"></Input>
                 <RadioGroup name='team_name' defaultValue="ORC">
-                    <Radio value='ORC' label={'ORC Team'} />
-                    <Radio value='IOW' label={'IOW Team'} />
+                    <Radio value='ORC' label={'ORC Task'} />
+                    <Radio value='IOW' label={'IOW Task'} />
+                    <Radio value='PB' label={'PB Task'} />
+                    <Radio value='SRE' label={'SRE Task'} />
+                    <Radio value='CEPH' label={'CEPH Task'} />
                 </RadioGroup>
                 <Button variant="solid" type="submit">Create</Button>
             </FormControl>
