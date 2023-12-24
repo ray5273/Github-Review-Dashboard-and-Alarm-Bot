@@ -50,9 +50,9 @@ export const UsersFormComponent: React.FC<UsersFormComponentProps> = ({ setData 
                     Add user data
                 </FormLabel>
                 <Input name='name' placeholder="Username"></Input>
-                <Input name='github_id' placeholder="github_id"></Input>
-                <Input name='company_id' placeholder="company_id"></Input>
-                <Input name='company_github_id' placeholder="company_github_id"></Input>
+                <Input name='github_id' placeholder="Public Github ID"></Input>
+                <Input name='company_id' placeholder="Company ID"></Input>
+                <Input name='company_github_id' placeholder="Company Github ID"></Input>
                 <RadioGroup name='team_name' defaultValue="ORC">
                     <Radio value='ORC' label={'ORC Task'} />
                     <Radio value='IOW' label={'IOW Task'} />
