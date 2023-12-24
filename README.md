@@ -12,6 +12,13 @@ Review Dashboard for teams
 ![image](https://github.com/ray5273/Github-Review-Dashboard-and-Alarm-Bot/assets/8529112/b5abad27-e4f4-4178-847e-2647e237fea3)
 
 
+Admin Page Example : Repository Data
+<img width="1126" alt="image" src="https://github.com/ray5273/Github-Review-Dashboard-and-Alarm-Bot/assets/8529112/d76741a4-84c1-4682-8cfb-477b4cc6132a">
+
+Admin Page Example : User Data
+<img width="1134" alt="image" src="https://github.com/ray5273/Github-Review-Dashboard-and-Alarm-Bot/assets/8529112/1e030934-5ef0-4cb3-9b8c-43b16ef09817">
+
+
 
 ### Review Dashboard Structure
 
