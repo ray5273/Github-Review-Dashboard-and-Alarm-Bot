@@ -98,7 +98,7 @@ podman-compose up -d
 - POSTGRES_PASSWORD: Postgres password
 - POSTGRES_DB: Postgres database name
 - POSTGRES_HOST: Postgres host
-- HTTP_PROXY: HTTP proxy for the company network (optional) (if )
+- HTTP_PROXY: HTTP proxy for the company network (optional)
 
 ```bash
 GITHUB_TOKEN=
