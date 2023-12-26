@@ -98,6 +98,7 @@ podman-compose up -d
 - POSTGRES_PASSWORD: Postgres password
 - POSTGRES_DB: Postgres database name
 - POSTGRES_HOST: Postgres host
+- HTTP_PROXY: HTTP proxy for the company network (optional) (if )
 
 ```bash
 GITHUB_TOKEN=
@@ -105,6 +106,7 @@ POSTGRES_USER=
 POSTGRES_PASSWORD=
 POSTGRES_DB=
 POSTGRES_HOST=
+HTTPS_PROXY=
 ````
 
 ## Run the programs
@@ -128,11 +130,12 @@ ts-node api-server/src/server.ts
 Frontend server will run on port 3000 by default. 
 
 **But you must set the port environment variable to 8081.**
+which is defined in the `.env` file in the frontend directory.
 
 ```bash
 cd frontend
 npm install
-port=8081 npm start
+npm start
 ```
 
 ## Plans

@@ -48,7 +48,7 @@ export class PrService {
     }
 
      getRequestedReviewersInPr(pr:Prs, users:Users[], repos:Repos[]) : Set<Users>{
-        var requestedReviewers : Set<Users> = new Set<Users>();
+        let requestedReviewers : Set<Users> = new Set<Users>();
         // 실제 user 처리
         for (let reviewer of pr.requested_reviewers) {
             for (let user of users) {

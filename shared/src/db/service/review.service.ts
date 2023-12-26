@@ -1,6 +1,8 @@
 import "reflect-metadata";
 import {Reviews} from '../entity/reviews.entity';
 import {DataSource, Repository} from "typeorm";
+import {Users} from "../entity/user.entity";
+import {Prs} from "../entity/pr.entity";
 
 
 export class ReviewService {
@@ -32,7 +34,7 @@ export class ReviewService {
     }
 
 
-    async CreateReviews(githubReviewResponse: any[], prId: number, repoId : number) : Promise<Reviews[]>{
+    async createReviews(githubReviewResponse: any[], prId: number, repoId : number) : Promise<Reviews[]>{
         var reviews : Reviews[] = [];
         for (let review of githubReviewResponse) {
             let reviewEntity = new Reviews();
@@ -46,6 +48,24 @@ export class ReviewService {
         }
 
         return this.instance.save(reviews);
+    }
+
+    async getReviewedUsersByPrId(prId: number, repoId: number, allUsers: Users[]) : Promise<Set<Users>>{
+        let reviewedUsers : Set<Users> = new Set<Users>();
+        try {
+            let reviews = await this.instance.find({where: {pr_id: prId, repo_id: repoId}})
+            for (let review of reviews) {
+                let user = new Users();
+                allUsers.find((user) => {
+                    if (user.github_id == review.reviewer) {
+                        reviewedUsers.add(user);
+                    }
+                })
+            }
+        } catch (error) {
+            console.log(error);
+        }
+        return reviewedUsers;
     }
 
 }

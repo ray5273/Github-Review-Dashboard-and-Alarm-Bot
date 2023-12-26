@@ -34,7 +34,7 @@ export class ReviewStatusService {
         return this.instance.find({where: {status: status}})
     }
 
-    async CreateReviewStatus(Users: Set<Users>, prId: number, repoId: number) : Promise<ReviewStatus[]>{
+    async createReviewStatus(Users: Set<Users>, prId: number, repoId: number) : Promise<ReviewStatus[]>{
 
         var reviewStatuses : ReviewStatus[] = [];
         // 특정 PR에 대한 모든 user의 대한 review status를 저장한다.

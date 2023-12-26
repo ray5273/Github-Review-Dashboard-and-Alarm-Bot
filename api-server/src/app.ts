@@ -6,7 +6,7 @@ import repoRoutes from "./routes/repo.routes";
 
 const app = express();
 const corsOptions = {
-    origin: "http://localhost:8081"
+    origin: "*"
 }
 app.use(cors(corsOptions));
 app.use(express.json());

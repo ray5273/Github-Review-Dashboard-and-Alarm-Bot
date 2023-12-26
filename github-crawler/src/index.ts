@@ -23,7 +23,7 @@ async function main() {
 
     try {
         const result = await sendGithubRateLimitRequest();
-        const users = await userInstance.getUserList();
+        const allUsers = await userInstance.getUserList();
         const repoLists = await repoInstance.getRepoList()
 
         for (let repo of repoLists) {
@@ -36,12 +36,17 @@ async function main() {
             // github reviews response to reviews entity
             for (let pr of prs) {
                 const reviewLists = await sendGithubReviewsRequest(repo.owner, repo.name, pr.pr_id);
-                await reviewInstance.CreateReviews(reviewLists, pr.pr_id, repo.id);
+                await reviewInstance.createReviews(reviewLists, pr.pr_id, repo.id);
 
                 const repoList = await repoInstance.getRepoListByRepoId(repo.id)
                 // pr id에 맞는 requested reviewer 파싱하기
-                const reviewers = prInstance.getRequestedReviewersInPr(pr, users, repoList)
-                const statuses = await reviewStatusInstance.CreateReviewStatus(reviewers, pr.pr_id, repo.id);
+                const reviewers = prInstance.getRequestedReviewersInPr(pr, allUsers, repoList)
+                const reviewedUsers = await reviewInstance.getReviewedUsersByPrId(pr.pr_id, repo.id, allUsers);
+
+                // requested reviewer에 reviewed user를 추가한다. ( review status 작성을 위해 )
+                reviewedUsers.forEach((reviewedUser) => reviewers.add(reviewedUser))
+
+                const statuses = await reviewStatusInstance.createReviewStatus(reviewers, pr.pr_id, repo.id);
             }
         }
     } catch (error) {
