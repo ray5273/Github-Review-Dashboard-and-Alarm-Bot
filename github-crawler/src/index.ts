@@ -27,7 +27,7 @@ async function main() {
         const repoLists = await repoInstance.getRepoList()
 
         for (let repo of repoLists) {
-            const pullRequestLists = await sendGithubPullRequestsRequest(repo.owner, repo.name);
+            const pullRequestLists = await sendGithubPullRequestsRequest(repo.owner, repo.name, repo.is_internal);
             // console.log(pullRequestLists)
             await prInstance.CreatePrs(pullRequestLists, repo.id);
 
@@ -35,7 +35,7 @@ async function main() {
 
             // github reviews response to reviews entity
             for (let pr of prs) {
-                const reviewLists = await sendGithubReviewsRequest(repo.owner, repo.name, pr.pr_id);
+                const reviewLists = await sendGithubReviewsRequest(repo.owner, repo.name, pr.pr_id, repo.is_internal);
                 await reviewInstance.createReviews(reviewLists, pr.pr_id, repo.id);
 
                 const repoList = await repoInstance.getRepoListByRepoId(repo.id)

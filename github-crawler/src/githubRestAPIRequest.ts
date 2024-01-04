@@ -1,5 +1,9 @@
 import axios from 'axios';
-import {GITHUB_TOKEN, HTTPS_PROXY} from './config';
+import {
+    GITHUB_TOKEN,
+    HTTPS_PROXY,
+    INTERNAL_GITHUB_HOSTNAME, INTERNAL_GITHUB_TOKEN
+} from './config';
 import { HttpsProxyAgent} from "https-proxy-agent";
 
 
@@ -29,6 +33,15 @@ if (String(HTTPS_PROXY) === "") {
         httpsAgent: httpsAgent
     });
 }
+const InternalBaseUrl = "https://" + INTERNAL_GITHUB_HOSTNAME + "/api/v3";
+let internalApi = axios.create({
+    baseURL: InternalBaseUrl,
+    headers: {
+        'Accept': 'application/vnd.github+json',
+        'Authorization': `Bearer ${INTERNAL_GITHUB_TOKEN}`,
+        'X-GitHub-Api-Version': '2022-11-28'
+    }
+});
 
 
 
@@ -53,12 +66,20 @@ export async function sendGithubRateLimitRequest() {
     }
 }
 
-export async function sendGithubPullRequestsRequest(owner: string, repo: string) {
+export async function sendGithubPullRequestsRequest(owner: string, repo: string, is_internal: boolean) {
+    if (is_internal) {
+        const response = await internalApi.get(getListOfPullRequestsURL(owner, repo));
+        return response.data;
+    }
     const response = await api.get(getListOfPullRequestsURL(owner, repo));
     return response.data;
 }
 
-export async function sendGithubReviewsRequest(owner: string, repo: string, pr_number: number) {
+export async function sendGithubReviewsRequest(owner: string, repo: string, pr_number: number, is_internal: boolean) {
+    if (is_internal) {
+        const response = await internalApi.get(getReviewsURL(owner, repo, pr_number));
+        return response.data;
+    }
     const response = await api.get(getReviewsURL(owner, repo, pr_number));
     return response.data;
 }
