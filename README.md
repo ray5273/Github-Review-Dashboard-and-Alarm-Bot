@@ -99,6 +99,8 @@ podman-compose up -d
 - POSTGRES_DB: Postgres database name
 - POSTGRES_HOST: Postgres host
 - HTTP_PROXY: HTTP proxy for the company network (optional)
+- INTERNAL_GITHUB_HOSTNAME: Github Enterprise hostname
+- INTERNAL_GITHUB_TOKEN: Github Enterprise token to access the Github API
 
 ```bash
 GITHUB_TOKEN=
@@ -107,6 +109,8 @@ POSTGRES_PASSWORD=
 POSTGRES_DB=
 POSTGRES_HOST=
 HTTPS_PROXY=
+INTERNAL_GITHUB_HOSTNAME=
+INTERNAL_GITHUB_TOKEN=
 ````
 
 ## Run the programs
@@ -155,4 +159,4 @@ npm start
   - [x] Newly added Repositories
   - [x] Delete Users
   - [x] Delete Repositories
-    
+- [x] Internal Repository Management
