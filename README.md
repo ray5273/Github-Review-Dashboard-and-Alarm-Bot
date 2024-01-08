@@ -142,6 +142,12 @@ npm install
 npm start
 ```
 
+### 4. Run the Github Alarm Webhook Bot
+
+```bash
+ts-node github-alarm-bot/src/server.ts
+```
+
 ## Plans
 
 - [x] Create a new project
@@ -160,3 +166,6 @@ npm start
   - [x] Delete Users
   - [x] Delete Repositories
 - [x] Internal Repository Management
+- [x] Create a Github bot to send the alarm message to the mattermost channel
+  - [] Create a bot account
+  - [] Send the alarm message to the mattermost channel
