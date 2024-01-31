@@ -27,6 +27,7 @@ create table prs (
     html_url varchar(255) not null,
     requested_reviewers TEXT[] not null,
     requested_teams TEXT[] not null,
+    alarm_sent boolean not null,
     foreign key (repo_id) references repos(id),
     primary key (repo_id, pr_id)
 );

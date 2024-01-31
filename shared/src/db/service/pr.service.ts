@@ -41,6 +41,7 @@ export class PrService {
             prEntity.html_url = pr.html_url;
             prEntity.requested_reviewers = pr.requested_reviewers.map((reviewer: any) => reviewer.login);
             prEntity.requested_teams = pr.requested_teams.map((team: any) => team.name);
+            prEntity.alarm_sent = false;
             prs.push(prEntity);
         }
 

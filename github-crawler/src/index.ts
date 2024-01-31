@@ -6,6 +6,7 @@ import { PrService} from "../../shared/src/db/service/pr.service";
 import { ReviewService } from "../../shared/src/db/service/review.service";
 import { RepoService } from "../../shared/src/db/service/repo.service";
 import { ReviewStatusService } from "../../shared/src/db/service/reviewStatus.service";
+import {sendPrAlarmByChannelId} from "./alarm.api";
 
 async function main() {
     console.log("This is github rest api request service");
@@ -47,8 +48,27 @@ async function main() {
                 reviewedUsers.forEach((reviewedUser) => reviewers.add(reviewedUser))
 
                 const statuses = await reviewStatusInstance.createReviewStatus(reviewers, pr.pr_id, repo.id);
+
+                if( pr.alarm_sent === false) { // && channel is alarmable
+                    const resp = await sendPrAlarmByChannelId("3oodxybx63rcmnrog4auydbzkc", pr)
+                    // if user is alarmable:
+                        // await sendPrAlarmByUserName();
+                    //update alarm_sent in db
+
+                }
             }
         }
+
+        // 여기에 alarm 매커니즘을 추가하면 될듯.
+
+        // alarmed 표시된 pr을 제외하고 pr을 alarm으로 보낸다.
+
+        // alarm을 받기를 원하는 사람/채널에 pr alarm을 보낸다. (channel list 관리 필요 + user alarm 여부 관리 필요함, column 추가 필요함)
+        // for pr in prs:
+        // if channel is alarmable:
+            // await sendPrAlarmByChannelId("9dynw6k8spn1trbd1s3nmokeke");
+        // if user is alarmable:
+
     } catch (error) {
         console.log(error);
     }

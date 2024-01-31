@@ -31,4 +31,7 @@ export class Prs {
 
     @Column("text", {array: true})
     requested_teams!: string[]
+
+    @Column()
+    alarm_sent!: boolean
 }
