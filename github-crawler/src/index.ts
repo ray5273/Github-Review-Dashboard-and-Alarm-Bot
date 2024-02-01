@@ -6,7 +6,7 @@ import { PrService} from "../../shared/src/db/service/pr.service";
 import { ReviewService } from "../../shared/src/db/service/review.service";
 import { RepoService } from "../../shared/src/db/service/repo.service";
 import { ReviewStatusService } from "../../shared/src/db/service/reviewStatus.service";
-import {sendPrAlarmByChannelId} from "./alarm.api";
+import { createDirectChannel, sendPrAlarmByChannelId } from "./alarm.api";
 
 async function main() {
     console.log("This is github rest api request service");
@@ -25,12 +25,13 @@ async function main() {
     try {
         const result = await sendGithubRateLimitRequest();
         const allUsers = await userInstance.getUserList();
-        const repoLists = await repoInstance.getRepoList()
+        const repoLists = await repoInstance.getRepoList();
+        // get channel ID list
 
         for (let repo of repoLists) {
             const pullRequestLists = await sendGithubPullRequestsRequest(repo.owner, repo.name, repo.is_internal);
             // console.log(pullRequestLists)
-            await prInstance.CreatePrs(pullRequestLists, repo.id);
+            await prInstance.CreatePrs(pullRequestLists, repo.id); // 매번 새로 생성하는듯 하여 updat
 
             const prs = await prInstance.getPrListByRepoId(repo.id);
 
@@ -50,25 +51,24 @@ async function main() {
                 const statuses = await reviewStatusInstance.createReviewStatus(reviewers, pr.pr_id, repo.id);
 
                 if( pr.alarm_sent === false) { // && channel is alarmable
-                    const resp = await sendPrAlarmByChannelId("3oodxybx63rcmnrog4auydbzkc", pr)
+                    // const resp = await sendPrAlarmByChannelId("3oodxybx63rcmnrog4auydbzkc", pr)
+
+                    const botId : string = "5ma3ayf5bibc58ku8mqz4jgc7e"  // TODO : id 확인할 수 있는 metric 확인이 필요함.
+                    const userId : string = "8jkc1apzgjnotxi9cd5fp71irr"
                     // if user is alarmable:
-                        // await sendPrAlarmByUserName();
+                    const createdDirectChannelId = await createDirectChannel(botId, userId)
+                    console.log(createdDirectChannelId)
+                    const resp1 = await sendPrAlarmByChannelId(createdDirectChannelId, pr)
+
                     //update alarm_sent in db
+                    await prInstance.UpdateAlarmSentInPr(pr.pr_id, repo.id);
+
+                    // TODO : 특정 user가 특정 repo들에 대한 알람을 설정하는 db가 필요함.
+                    // TODO : 특정 Channel이 특정 repo들에 대한 알람을 설정하는 db가 필요함.
 
                 }
             }
         }
-
-        // 여기에 alarm 매커니즘을 추가하면 될듯.
-
-        // alarmed 표시된 pr을 제외하고 pr을 alarm으로 보낸다.
-
-        // alarm을 받기를 원하는 사람/채널에 pr alarm을 보낸다. (channel list 관리 필요 + user alarm 여부 관리 필요함, column 추가 필요함)
-        // for pr in prs:
-        // if channel is alarmable:
-            // await sendPrAlarmByChannelId("9dynw6k8spn1trbd1s3nmokeke");
-        // if user is alarmable:
-
     } catch (error) {
         console.log(error);
     }

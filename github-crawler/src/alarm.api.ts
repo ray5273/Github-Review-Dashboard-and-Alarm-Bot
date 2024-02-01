@@ -2,6 +2,27 @@
 import axios from "axios";
 import { Prs } from "../../shared/src/db/entity/pr.entity";
 
+export const createDirectChannel = async (userId: string, otherUserId: string) => {
+    const data =
+        [
+            userId,
+            otherUserId
+        ]
+
+    const config = {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer qtnmcscg97gi9nww9rmux1h4sw' // bot token
+        }
+    };
+    try {
+        const response = await axios.post('http://localhost:8065/api/v4/channels/direct', data, config);
+        return response.data.id
+    } catch (error) {
+        console.error(error);
+    }
+}
+
 export const sendPrAlarmByChannelId = async (channelId:string, Pr:Prs) => {
     const data = {
         "channel_id": channelId,

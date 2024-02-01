@@ -30,6 +30,8 @@ export class PrService {
     async CreatePrs(githubPrResponse: any[], repoId: number) : Promise<Prs[]>{
         var prs: Prs[] = [];
         for (let pr of githubPrResponse) {
+            // 기존에 존재하고 alarm_sent가 false인 경우에만 alarm_sent를 false로 유지한다.
+            let existingPr = await this.instance.findOne({ where: { pr_id: pr.number, repo_id: repoId } });
             let prEntity = new Prs();
             prEntity.author = pr.user.login;
             prEntity.repo_id = repoId
@@ -41,11 +43,22 @@ export class PrService {
             prEntity.html_url = pr.html_url;
             prEntity.requested_reviewers = pr.requested_reviewers.map((reviewer: any) => reviewer.login);
             prEntity.requested_teams = pr.requested_teams.map((team: any) => team.name);
-            prEntity.alarm_sent = false;
+            // alarm sent만 기존의 값에 따라서 결정한다.
+            prEntity.alarm_sent = existingPr ? existingPr.alarm_sent : false;
             prs.push(prEntity);
         }
 
+
         return this.instance.save(prs);
+    }
+
+    async UpdateAlarmSentInPr(prId: number, repoId: number) : Promise<Prs>{
+        let pr = await this.instance.findOne({where: {pr_id: prId, repo_id: repoId}});
+        if (pr == null) {
+            return Promise.reject("Pr not found");
+        }
+        pr.alarm_sent = true;
+        return this.instance.save(pr);
     }
 
      getRequestedReviewersInPr(pr:Prs, users:Users[], repos:Repos[]) : Set<Users>{
