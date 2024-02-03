@@ -49,3 +49,16 @@ create table review_status (
     status varchar(255) not null,
     primary key (pr_id, reviewer, repo_id)
 );
+
+create table user_repo_alarm (
+    user_name varchar(255) not null,
+    repo_id integer not null,
+    primary key (user_name, repo_id)
+);
+
+create table channel_repo_alarm (
+    channel_name varchar(255) not null,
+    channel_id varchar(255) not null,
+    repo_id integer not null,
+    primary key (channel_id, repo_id)
+);

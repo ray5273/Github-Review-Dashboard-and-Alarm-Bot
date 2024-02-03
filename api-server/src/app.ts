@@ -13,5 +13,7 @@ app.use(express.json());
 
 app.use('/users', userRoutes);
 app.use('/repos', repoRoutes);
+app.use('/channel-repo-alarm', repoRoutes);
+app.use('/user-repo-alarm', repoRoutes);
 
 export default app;
