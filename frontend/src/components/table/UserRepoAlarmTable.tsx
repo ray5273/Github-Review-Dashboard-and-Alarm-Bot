@@ -3,15 +3,15 @@ import Box from '@mui/joy/Box';
 import Button from '@mui/joy/Button';
 import Table from '@mui/joy/Table';
 import Sheet from '@mui/joy/Sheet';
-import {ChannelRepoAlarm} from "../../../shared/src/db/entity/channel.repo.alarm.entity";
+import {UserRepoAlarm} from "../../../../shared/src/db/entity/user.repo.alarm.entity";
 import axios, {AxiosResponse} from "axios";
 
 
-interface ChannelRepoAlarmTableColumnPinningProps {
-    rows: ChannelRepoAlarm[];
+interface UserRepoAlarmTableColumnPinningProps {
+    rows: UserRepoAlarm[];
 }
 
-export default function ChannelRepoAlarmTableColumnPinning({rows}: ChannelRepoAlarmTableColumnPinningProps) {
+export default function UserRepoAlarmTableColumnPinning({rows}: UserRepoAlarmTableColumnPinningProps) {
     // const handleDelete = (name:string, company_id: string) => () => {
     //     axios.delete(`${process.env.REACT_APP_DB_API_SERVER}/users/${name}/${company_id}`)
     //         .then((response: AxiosResponse) => {
@@ -81,19 +81,20 @@ export default function ChannelRepoAlarmTableColumnPinning({rows}: ChannelRepoAl
                     <thead>
                     <tr>
                         <th style={{width: 'var(--Table-firstColumnWidth)'}}>Number</th>
-                        <th style={{width: 200}}>Channel Name</th>
-                        <th style={{width: 200}}>Channel ID</th>
-                        <th style={{width: 200}}>Repository ID &nbsp;</th>
-                        {/*    여기에 repo name 선택을 할수있도록 추가해야함.*/}
+                        <th style={{width: 200}}>User Name</th>
+                        <th style={{width: 200}}>Repository id&nbsp;</th>
+                        <th style={{width: 200}}>Repository owner&nbsp;</th>
+                        <th style={{width: 200}}>Repository name&nbsp;</th>
                     </tr>
                     </thead>
                     <tbody>
-                    {rows.map((item, index) => (
+                    {rows.map((item,index) => (
                         <tr key={index}>
                             <td>{index}</td>
-                            <td>{item.channel_name}</td>
-                            <td>{item.channel_id}</td>
+                            <td>{item.user_name}</td>
                             <td>{item.repo_id}</td>
+                            <td>{item.repo_owner}</td>
+                            <td>{item.repo_name}</td>
                         </tr>
                     ))}
                     </tbody>

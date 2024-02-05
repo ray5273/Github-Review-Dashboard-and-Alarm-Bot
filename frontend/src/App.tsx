@@ -1,18 +1,18 @@
 import React, {useState, useEffect, useContext, SetStateAction} from 'react';
 import axios, {AxiosResponse} from 'axios';
 import {Repos} from '../../shared/src/db/entity/repo.entity'
-import RepoTableColumnPinning from './components/RepoTable';
+import RepoTableColumnPinning from './components/table/RepoTable';
 import CssBaseline from '@mui/joy/CssBaseline';
 import {CssVarsProvider, useColorScheme} from "@mui/joy/styles";
-import {RepoFormComponent} from "./components/RepoFormComponent";
+import {RepoFormComponent} from "./components/form/RepoFormComponent";
 import {TabsComponent} from "./components/TabsComponent";
 import {ColorSchemeToggle} from "./components/ColorSchemeToggle";
 import {Users} from "../../shared/src/db/entity/user.entity";
-import {UsersFormComponent} from "./components/UsersFormComponent";
-import UserTableColumnPinning from "./components/UserTable";
+import {UsersFormComponent} from "./components/form/UsersFormComponent";
+import UserTableColumnPinning from "./components/table/UserTable";
 import {UserRepoAlarm} from "../../shared/src/db/entity/user.repo.alarm.entity";
-import UserRepoAlarmTableColumnPinning from "./components/UserRepoAlarmTable";
-import {UserRepoAlarmFormComponent} from "./components/UserRepoAlarmFormComponent";
+import UserRepoAlarmTableColumnPinning from "./components/table/UserRepoAlarmTable";
+import {UserRepoAlarmFormComponent} from "./components/form/UserRepoAlarmFormComponent";
 
 function App() {
   const [repos, setRepos] = useState<Repos[] | null>(null);
@@ -52,7 +52,7 @@ function App() {
 
     fetchData();
 
-  }, [placement, repos, users]); //user-alarm repo는 없어도되나
+  }, [placement, repos, users, userRepoAlarms?.length]);
 
     const componentMap = {
         'repos': {

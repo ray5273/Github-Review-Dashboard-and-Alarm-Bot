@@ -53,6 +53,9 @@ create table review_status (
 create table user_repo_alarm (
     user_name varchar(255) not null,
     repo_id integer not null,
+    repo_name varchar(255) not null,
+    repo_is_internal boolean not null,
+    repo_owner varchar(255) not null,
     primary key (user_name, repo_id)
 );
 
@@ -60,5 +63,8 @@ create table channel_repo_alarm (
     channel_name varchar(255) not null,
     channel_id varchar(255) not null,
     repo_id integer not null,
+    repo_name varchar(255) not null,
+    repo_is_internal boolean not null,
+    repo_owner varchar(255) not null,
     primary key (channel_id, repo_id)
 );

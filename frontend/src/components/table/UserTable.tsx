@@ -3,18 +3,17 @@ import Box from '@mui/joy/Box';
 import Button from '@mui/joy/Button';
 import Table from '@mui/joy/Table';
 import Sheet from '@mui/joy/Sheet';
-import {Repos} from "../../../shared/src/db/entity/repo.entity";
+import {Users} from "../../../../shared/src/db/entity/user.entity";
 import axios, {AxiosResponse} from "axios";
 
 
-
-interface RepoTableColumnPinningProps {
-    rows: Repos[];
+interface UserTableColumnPinningProps {
+    rows: Users[];
 }
 
-export default function RepoTableColumnPinning({rows}: RepoTableColumnPinningProps) {
-    const handleDelete = (id: number) => () => {
-        axios.delete(`${process.env.REACT_APP_DB_API_SERVER}/repos/${id}`)
+export default function UserTableColumnPinning({rows}: UserTableColumnPinningProps) {
+    const handleDelete = (name:string, company_id: string) => () => {
+        axios.delete(`${process.env.REACT_APP_DB_API_SERVER}/users/${name}/${company_id}`)
             .then((response: AxiosResponse) => {
                 console.log(response);
             })
@@ -22,7 +21,7 @@ export default function RepoTableColumnPinning({rows}: RepoTableColumnPinningPro
                 console.log(error);
             });
     }
-
+    if (!Array.isArray(rows)) return <div>Loading...</div>
     return (
         <Box sx={{ width: '100%' }}>
             <Sheet
@@ -81,27 +80,31 @@ export default function RepoTableColumnPinning({rows}: RepoTableColumnPinningPro
                 >
                     <thead>
                     <tr>
-                        <th style={{ width: 'var(--Table-firstColumnWidth)' }}>Number</th>
-                        <th style={{ width: 200 }}>Owner</th>
-                        <th style={{ width: 200 }}>Repository Name&nbsp;</th>
-                        <th style={{ width: 200 }}>Internal Repository&nbsp;</th>
-                        <th style={{ width: 200 }}>Delete&nbsp;</th>
+                        <th style={{width: 'var(--Table-firstColumnWidth)'}}>Number</th>
+                        <th style={{width: 200}}>Name</th>
+                        <th style={{width: 200}}>Github ID&nbsp;</th>
+                        <th style={{width: 200}}>Company ID&nbsp;</th>
+                        <th style={{width: 200}}>Company Github ID&nbsp;</th>
+                        <th style={{width: 200}}>Team&nbsp;</th>
+                        <th style={{width: 200}}>Delete&nbsp;</th>
                         <th
                             aria-label="last"
-                            style={{ width: 'var(--Table-lastColumnWidth)' }}
+                            style={{width: 'var(--Table-lastColumnWidth)'}}
                         />
                     </tr>
                     </thead>
                     <tbody>
-                    {rows.map((row) => (
-                        <tr key={row.name}>
-                            <td>{row.id}</td>
-                            <td>{row.owner}</td>
-                            <td>{row.name}</td>
-                            <td>{row.is_internal.toString()}</td>
+                    {rows.map((item,index) => (
+                        <tr key={index}>
+                            <td>{index}</td>
+                            <td>{item.name}</td>
+                            <td>{item.github_id}</td>
+                            <td>{item.company_id}</td>
+                            <td>{item.company_github_id}</td>
+                            <td>{item.team_name}</td>
                             <td>
-                                <Box sx={{ display: 'flex', gap: 1 }}>
-                                    <Button size="sm" variant="soft" color="danger"onClick={handleDelete(row.id)}>
+                                <Box sx={{display: 'flex', gap: 1}}>
+                                    <Button size="sm" variant="soft" color="danger" onClick={handleDelete(item.name, item.company_id)}>
                                         Delete
                                     </Button>
                                 </Box>

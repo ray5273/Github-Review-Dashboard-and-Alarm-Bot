@@ -1,4 +1,5 @@
-import {Entity, PrimaryColumn, Column} from "typeorm";
+import {Entity, PrimaryColumn, Column, ManyToOne} from "typeorm";
+import {Repos} from "./repo.entity";
 
 @Entity()
 export class UserRepoAlarm {
@@ -7,4 +8,13 @@ export class UserRepoAlarm {
 
     @PrimaryColumn()
     repo_id!: number
+
+    @Column()
+    repo_name!: string
+
+    @Column()
+    repo_is_internal!: boolean
+
+    @Column()
+    repo_owner!: string
 }

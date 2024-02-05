@@ -1,7 +1,7 @@
 // UsersFormComponent.tsx
 import React from 'react';
 import axios, {AxiosResponse} from 'axios';
-import {Users} from "../../../shared/src/db/entity/user.entity";
+import {Users} from "../../../../shared/src/db/entity/user.entity";
 import FormControl from "@mui/joy/FormControl";
 import FormLabel from '@mui/joy/FormLabel';
 import Input from '@mui/joy/Input';

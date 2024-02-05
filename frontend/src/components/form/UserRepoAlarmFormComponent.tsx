@@ -1,7 +1,7 @@
 // UsersFormComponent.tsx
 import React, {useEffect, useState} from 'react';
 import axios, {AxiosResponse} from 'axios';
-import {UserRepoAlarm} from "../../../shared/src/db/entity/user.repo.alarm.entity";
+import {UserRepoAlarm} from "../../../../shared/src/db/entity/user.repo.alarm.entity";
 import FormControl from "@mui/joy/FormControl";
 import FormLabel from '@mui/joy/FormLabel';
 import Input from '@mui/joy/Input';
@@ -9,9 +9,9 @@ import Button from "@mui/joy/Button";
 import Radio from "@mui/joy/Radio";
 import RadioGroup from "@mui/joy/RadioGroup";
 import {MenuItem, Select} from "@mui/joy";
-import {Repos} from "../../../shared/src/db/entity/repo.entity"
+import {Repos} from "../../../../shared/src/db/entity/repo.entity"
 import Option from "@mui/joy/Option";
-import {Users} from "../../../shared/src/db/entity/user.entity";
+import {Users} from "../../../../shared/src/db/entity/user.entity";
 
 interface UserRepoAlarmFormComponentProps {
     setData: React.Dispatch<React.SetStateAction<UserRepoAlarm[] | null>>
@@ -20,18 +20,20 @@ interface UserRepoAlarmFormComponentProps {
 
 export const UserRepoAlarmFormComponent: React.FC<UserRepoAlarmFormComponentProps> = ({ setData }) => {
     const [selectedRepo, setSelectedRepo] = useState<string | null>(null);
+    const [selectedUser, setSelectedUser] = useState<string | null>(null);
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        const user_name = data.get('user_name');
 
+        console.log(selectedUser, selectedRepo);
         const body = {
-            user_name: user_name,
+            user_name: selectedUser,
             repo_id : selectedRepo
         }
         await axios.post(`${process.env.REACT_APP_DB_API_SERVER}/user-repo-alarm`, body)
             .then((res : AxiosResponse<UserRepoAlarm[]>) => {
+                console.log(res);
                 setData(res.data);
             }).catch((err) => {
                 console.log(err);
@@ -47,16 +49,16 @@ export const UserRepoAlarmFormComponent: React.FC<UserRepoAlarmFormComponentProp
             };
 
             fetchData();
-        }, []);
+        }, [users]);
         const handleChange = (
             event: React.SyntheticEvent | null,
             newValue: string | null,
         ) => {
-            setSelectedRepo(newValue)
+            setSelectedUser(newValue)
         };
 
         return (
-            <Select value={selectedRepo} onChange={handleChange} placeholder={"Select User"}>
+            <Select value={selectedUser} onChange={handleChange} placeholder={"Select User"}>
                 {users.map((item, index) => (
                     <Option value={item.name}>
                         {`${item.name}`}
@@ -68,7 +70,6 @@ export const UserRepoAlarmFormComponent: React.FC<UserRepoAlarmFormComponentProp
 
     const RepoDropdownComponent = () => {
         const [repos, setRepos] = useState<Repos[]>([]);
-        const [selectedRepo, setSelectedRepo] = useState<string | null>(null);
 
         useEffect(() => {
             const fetchData = async () => {
@@ -77,7 +78,7 @@ export const UserRepoAlarmFormComponent: React.FC<UserRepoAlarmFormComponentProp
             };
 
             fetchData();
-        }, []);
+        }, [repos]);
         const handleChange = (
             event: React.SyntheticEvent | null,
             newValue: string | null,
@@ -97,21 +98,31 @@ export const UserRepoAlarmFormComponent: React.FC<UserRepoAlarmFormComponentProp
     };
 
     return (
-        // TODO : 여기 데이터가 왜 repo table로 들어가는지 모르겠음.
         <form onSubmit={handleSubmit}>
             <FormControl
-                id="Id"
+                id="User"
                 required
                 size="sm"
                 color="primary"
                 sx={{ mt: 4, width: 400 }}>
                 <FormLabel>
-                    Add User Repo Alarm Data
+                    Select User
                 </FormLabel>
                 <UserDropdownComponent></UserDropdownComponent>
-                <RepoDropdownComponent></RepoDropdownComponent>
-                <Button variant="solid" type="submit">Create</Button>
             </FormControl>
+            <FormControl
+                id="Repo"
+                required
+                size="sm"
+                color="primary"
+                sx={{ width: 400 }}>
+                <FormLabel>
+                    Select Repository
+                </FormLabel>
+                <RepoDropdownComponent></RepoDropdownComponent>
+            </FormControl>
+
+            <Button variant="solid" type="submit">Create</Button>
         </form>
     );
 }

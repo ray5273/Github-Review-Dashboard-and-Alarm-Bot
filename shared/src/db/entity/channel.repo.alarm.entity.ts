@@ -10,4 +10,13 @@ export class ChannelRepoAlarm {
 
     @PrimaryColumn()
     repo_id!: number
+
+    @Column()
+    repo_name!: string
+
+    @Column()
+    repo_is_internal!: boolean
+
+    @Column()
+    repo_owner!: string
 }

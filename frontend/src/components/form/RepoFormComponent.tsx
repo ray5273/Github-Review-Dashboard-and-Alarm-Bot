@@ -1,7 +1,7 @@
 // FormComponent.tsx
 import React from 'react';
 import axios, {AxiosResponse} from 'axios';
-import {Repos} from "../../../shared/src/db/entity/repo.entity";
+import {Repos} from "../../../../shared/src/db/entity/repo.entity";
 import FormControl from "@mui/joy/FormControl";
 import FormLabel from '@mui/joy/FormLabel';
 import Input from '@mui/joy/Input';

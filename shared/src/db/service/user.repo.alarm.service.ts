@@ -1,11 +1,8 @@
 
-
-// user to channel 추가하는 api
-// user to channel 삭제하는 api
-
 import "reflect-metadata";
 import {DataSource, Repository} from "typeorm";
 import {UserRepoAlarm} from "../entity/user.repo.alarm.entity";
+import {Repos} from "../entity/repo.entity";
 
 export class UserRepoAlarmService {
     private instance: Repository<UserRepoAlarm>;
