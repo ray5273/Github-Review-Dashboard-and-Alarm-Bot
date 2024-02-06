@@ -10,7 +10,7 @@ import Radio from "@mui/joy/Radio";
 import RadioGroup from "@mui/joy/RadioGroup";
 
 interface UsersFormComponentProps {
-    setData: React.Dispatch<React.SetStateAction<Users[] | null>>
+    setData: React.Dispatch<React.SetStateAction<Users[] | []>>
 }
 
 export const UsersFormComponent: React.FC<UsersFormComponentProps> = ({ setData }) => {
@@ -50,9 +50,49 @@ export const UsersFormComponent: React.FC<UsersFormComponentProps> = ({ setData 
                     Add user data
                 </FormLabel>
                 <Input name='name' placeholder="Username"></Input>
+            </FormControl>
+            <FormControl
+                id="GithubId"
+                required
+                size="sm"
+                color="primary"
+                sx={{ mt: 4, width: 400 }}>
+                <FormLabel>
+                    Public Github ID
+                </FormLabel>
                 <Input name='github_id' placeholder="Public Github ID"></Input>
+            </FormControl>
+            <FormControl
+                id="CompanyId"
+                required
+                size="sm"
+                color="primary"
+                sx={{ mt: 4, width: 400 }}>
+                <FormLabel>
+                    Company ID
+                </FormLabel>
                 <Input name='company_id' placeholder="Company ID"></Input>
+            </FormControl>
+            <FormControl
+                id="CompanyGithubId"
+                required
+                size="sm"
+                color="primary"
+                sx={{ mt: 4, width: 400 }}>
+                <FormLabel>
+                    Company Github ID
+                </FormLabel>
                 <Input name='company_github_id' placeholder="Company Github ID"></Input>
+            </FormControl>
+            <FormControl
+                id="TeamName"
+                required
+                size="sm"
+                color="primary"
+                sx={{ mt: 4, width: 400 }}>
+                <FormLabel>
+                    Team Name
+                </FormLabel>
                 <RadioGroup name='team_name' defaultValue="ORC">
                     <Radio value='ORC' label={'ORC Task'} />
                     <Radio value='IOW' label={'IOW Task'} />
@@ -60,8 +100,8 @@ export const UsersFormComponent: React.FC<UsersFormComponentProps> = ({ setData 
                     <Radio value='SRE' label={'SRE Task'} />
                     <Radio value='CEPH' label={'CEPH Task'} />
                 </RadioGroup>
-                <Button variant="solid" type="submit">Create</Button>
             </FormControl>
+            <Button variant="solid" type="submit">Create</Button>
         </form>
     );
 }

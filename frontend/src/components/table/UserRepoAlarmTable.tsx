@@ -9,18 +9,21 @@ import axios, {AxiosResponse} from "axios";
 
 interface UserRepoAlarmTableColumnPinningProps {
     rows: UserRepoAlarm[];
+    setPlacement: React.Dispatch<React.SetStateAction<'users' | 'repos' | 'user_repo_alarm'>>;
 }
 
-export default function UserRepoAlarmTableColumnPinning({rows}: UserRepoAlarmTableColumnPinningProps) {
-    // const handleDelete = (name:string, company_id: string) => () => {
-    //     axios.delete(`${process.env.REACT_APP_DB_API_SERVER}/users/${name}/${company_id}`)
-    //         .then((response: AxiosResponse) => {
-    //             console.log(response);
-    //         })
-    //         .catch((error) => {
-    //             console.log(error);
-    //         });
-    // }
+export default function UserRepoAlarmTableColumnPinning({rows, setPlacement}: UserRepoAlarmTableColumnPinningProps) {
+    const handleDelete = (user_name:string, repo_id: string) => () => {
+        console.log(user_name, repo_id)
+        axios.delete(`${process.env.REACT_APP_DB_API_SERVER}/user-repo-alarm/${user_name}/${repo_id}`)
+            .then((response: AxiosResponse) => {
+                console.log(response);
+                setPlacement('users')
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
     if (!Array.isArray(rows)) return <div>Loading...</div>
     return (
         <Box sx={{ width: '100%' }}>
@@ -85,16 +88,29 @@ export default function UserRepoAlarmTableColumnPinning({rows}: UserRepoAlarmTab
                         <th style={{width: 200}}>Repository id&nbsp;</th>
                         <th style={{width: 200}}>Repository owner&nbsp;</th>
                         <th style={{width: 200}}>Repository name&nbsp;</th>
+                        <th style={{width: 200}}>Delete&nbsp;</th>
+                        <th
+                            aria-label="last"
+                            style={{width: 'var(--Table-lastColumnWidth)'}}
+                        />
                     </tr>
                     </thead>
                     <tbody>
-                    {rows.map((item,index) => (
+                    {rows.map((item, index) => (
                         <tr key={index}>
                             <td>{index}</td>
                             <td>{item.user_name}</td>
                             <td>{item.repo_id}</td>
                             <td>{item.repo_owner}</td>
                             <td>{item.repo_name}</td>
+                            <td>
+                                <Box sx={{display: 'flex', gap: 1}}>
+                                    <Button size="sm" variant="soft" color="danger"
+                                            onClick={handleDelete(item.user_name, String(item.repo_id))}>
+                                        Delete
+                                    </Button>
+                                </Box>
+                            </td>
                         </tr>
                     ))}
                     </tbody>

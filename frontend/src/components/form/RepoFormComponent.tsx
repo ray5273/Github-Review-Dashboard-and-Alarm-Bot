@@ -10,7 +10,7 @@ import Radio from '@mui/joy/Radio';
 import RadioGroup from '@mui/joy/RadioGroup';
 
 interface RepoFormComponentProps {
-    setData: React.Dispatch<React.SetStateAction<Repos[] | null>>
+    setData: React.Dispatch<React.SetStateAction<Repos[] | []>>
 }
 
 export const RepoFormComponent: React.FC<RepoFormComponentProps> = ({ setData }) => {
@@ -40,22 +40,42 @@ export const RepoFormComponent: React.FC<RepoFormComponentProps> = ({ setData })
     return (
         <form onSubmit={handleSubmit}>
             <FormControl
-                id="Id"
+                id="Owner"
                 required
                 size="sm"
                 color="primary"
                 sx={{ mt: 4, width: 400 }}>
                 <FormLabel>
-                    Add Repository Data
+                    Repository Owner
                 </FormLabel>
                 <Input name='owner' placeholder="Owner"></Input>
+            </FormControl>
+            <FormControl
+                id="Repo"
+                required
+                size="sm"
+                color="primary"
+                sx={{ mt: 4, width: 400 }}>
+                <FormLabel>
+                    Repository Name
+                </FormLabel>
                 <Input name='repo' placeholder="Repository Name"></Input>
+            </FormControl>
+            <FormControl
+                id="Internal"
+                required
+                size="sm"
+                color="primary"
+                sx={{ mt: 4, width: 400 }}>
+                <FormLabel>
+                    Internal/External Repository
+                </FormLabel>
                 <RadioGroup name='internal' defaultValue="true">
                     <Radio value='true' label={'Internal Repository'} />
                     <Radio value='false' label={'External Repository'} />
                 </RadioGroup>
-                <Button variant="solid" type="submit">Create</Button>
             </FormControl>
+            <Button variant="solid" type="submit">Create</Button>
         </form>
     );
 }

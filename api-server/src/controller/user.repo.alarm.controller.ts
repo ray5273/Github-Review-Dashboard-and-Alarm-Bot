@@ -11,6 +11,9 @@ export const createUserRepoAlarm = async (req: Request, res: Response) => {
         const userRepo = new UserRepoAlarm();
         userRepo.repo_id = req.body.repo_id;
         userRepo.user_name = req.body.user_name;
+        userRepo.repo_is_internal = req.body.repo_is_internal;
+        userRepo.repo_owner = req.body.repo_owner;
+        userRepo.repo_name = req.body.repo_name;
 
         await userRepoAlarmService.createUserRepoAlarm(userRepo);
         console.log(userRepo)

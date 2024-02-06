@@ -14,12 +14,15 @@ import Option from "@mui/joy/Option";
 import {Users} from "../../../../shared/src/db/entity/user.entity";
 
 interface UserRepoAlarmFormComponentProps {
-    setData: React.Dispatch<React.SetStateAction<UserRepoAlarm[] | null>>
+    setData: React.Dispatch<React.SetStateAction<UserRepoAlarm[] | []>>
 }
 
+// TODO : axios api들 전부 바꾸기
+// TODO : UserRepoAlarm db 바뀐 부분 ui 변경 반영해주기
 
 export const UserRepoAlarmFormComponent: React.FC<UserRepoAlarmFormComponentProps> = ({ setData }) => {
     const [selectedRepo, setSelectedRepo] = useState<string | null>(null);
+    const [selectedRepoEntity, setSelectedRepoEntity] = useState<Repos | null>(null);
     const [selectedUser, setSelectedUser] = useState<string | null>(null);
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -27,9 +30,13 @@ export const UserRepoAlarmFormComponent: React.FC<UserRepoAlarmFormComponentProp
         const data = new FormData(event.currentTarget);
 
         console.log(selectedUser, selectedRepo);
+        console.log(selectedRepoEntity)
         const body = {
             user_name: selectedUser,
-            repo_id : selectedRepo
+            repo_id : selectedRepo,
+            repo_name : selectedRepoEntity!.name,
+            repo_is_internal : selectedRepoEntity!.is_internal,
+            repo_owner : selectedRepoEntity!.owner
         }
         await axios.post(`${process.env.REACT_APP_DB_API_SERVER}/user-repo-alarm`, body)
             .then((res : AxiosResponse<UserRepoAlarm[]>) => {
@@ -84,6 +91,9 @@ export const UserRepoAlarmFormComponent: React.FC<UserRepoAlarmFormComponentProp
             newValue: string | null,
         ) => {
             setSelectedRepo(newValue)
+            console.log(newValue)
+            const result = repos.find((repo) => repo.id === Number(newValue));
+            setSelectedRepoEntity(result? result : null);
         };
 
         return (

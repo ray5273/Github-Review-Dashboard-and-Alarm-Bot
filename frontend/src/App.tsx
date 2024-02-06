@@ -15,9 +15,9 @@ import UserRepoAlarmTableColumnPinning from "./components/table/UserRepoAlarmTab
 import {UserRepoAlarmFormComponent} from "./components/form/UserRepoAlarmFormComponent";
 
 function App() {
-  const [repos, setRepos] = useState<Repos[] | null>(null);
-  const [users, setUsers] = useState<Users[] | null>(null);
-  const [userRepoAlarms, setUserRepoAlarms] = useState<UserRepoAlarm[] | null>(null);
+  const [repos, setRepos] = useState<Repos[] | []>([]);
+  const [users, setUsers] = useState<Users[] | []>([]);
+  const [userRepoAlarms, setUserRepoAlarms] = useState<UserRepoAlarm[] | []>([]);
     const [placement, setPlacement] = React.useState<'users' | 'repos' | 'user_repo_alarm'>('users');
   useEffect(() => {
     const fetchData = async () => {
@@ -41,7 +41,7 @@ function App() {
             case 'user_repo_alarm':
                 await axios.get(`${process.env.REACT_APP_DB_API_SERVER}/user-repo-alarm`)
                     .then((res: AxiosResponse<UserRepoAlarm[]>) => {
-                        setUserRepoAlarms(res.data);
+                        setUserRepoAlarms(Array.from(res.data));
                     }).catch((err) => {
                         console.log(err);
                     });
@@ -52,7 +52,7 @@ function App() {
 
     fetchData();
 
-  }, [placement, repos, users, userRepoAlarms?.length]);
+  }, [placement, repos, users, userRepoAlarms.length]);
 
     const componentMap = {
         'repos': {
@@ -64,7 +64,7 @@ function App() {
             form: users ? <UsersFormComponent setData={setUsers} /> : <div>Loading...</div>
         },
         'user_repo_alarm': {
-            table: userRepoAlarms? <UserRepoAlarmTableColumnPinning rows={userRepoAlarms}/> : <div>Loading...</div>,
+            table: userRepoAlarms? <UserRepoAlarmTableColumnPinning rows={userRepoAlarms} setPlacement={setPlacement}/> : <div>Loading...</div>,
             form: userRepoAlarms? <UserRepoAlarmFormComponent setData={setUserRepoAlarms}/> : <div>Loading...</div>
         },
         // 추가적인 placement 값들을 여기에 추가할 수 있습니다.
