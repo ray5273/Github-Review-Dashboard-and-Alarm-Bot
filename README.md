@@ -167,5 +167,5 @@ ts-node github-alarm-bot/src/server.ts
   - [x] Delete Repositories
 - [x] Internal Repository Management
 - [x] Create a Github bot to send the alarm message to the mattermost channel
-  - [] Create a bot account
-  - [] Send the alarm message to the mattermost channel
+  - [ ] Create a bot account
+  - [ ] Send the alarm message to the mattermost channel
