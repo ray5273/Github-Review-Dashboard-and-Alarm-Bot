@@ -13,12 +13,16 @@ import UserTableColumnPinning from "./components/table/UserTable";
 import {UserRepoAlarm} from "../../shared/src/db/entity/user.repo.alarm.entity";
 import UserRepoAlarmTableColumnPinning from "./components/table/UserRepoAlarmTable";
 import {UserRepoAlarmFormComponent} from "./components/form/UserRepoAlarmFormComponent";
+import {ChannelRepoAlarm} from "../../shared/src/db/entity/channel.repo.alarm.entity";
+import ChannelRepoAlarmTableColumnPinning from "./components/table/ChannelRepoAlarmTable";
+import {ChannelRepoAlarmComponent} from "./components/form/ChannelRepoAlarmFormComponent";
 
 function App() {
   const [repos, setRepos] = useState<Repos[] | []>([]);
   const [users, setUsers] = useState<Users[] | []>([]);
   const [userRepoAlarms, setUserRepoAlarms] = useState<UserRepoAlarm[] | []>([]);
-    const [placement, setPlacement] = React.useState<'users' | 'repos' | 'user_repo_alarm'>('users');
+  const [channelRepoAlarms, setChannelRepoAlarms] = useState<ChannelRepoAlarm[] | []>([]);
+    const [placement, setPlacement] = React.useState<'users' | 'repos' | 'user_repo_alarm' | 'channel_repo_alarm'>('users');
   useEffect(() => {
     const fetchData = async () => {
         switch (placement){
@@ -46,13 +50,20 @@ function App() {
                         console.log(err);
                     });
                 break;
-
+            case "channel_repo_alarm":
+                await axios.get(`${process.env.REACT_APP_DB_API_SERVER}/channel-repo-alarm`)
+                    .then((res: AxiosResponse<ChannelRepoAlarm[]>) => {
+                        setChannelRepoAlarms(Array.from(res.data));
+                    }).catch((err) => {
+                        console.log(err);
+                    });
+                break;
         }
     };
 
     fetchData();
 
-  }, [placement, repos, users, userRepoAlarms.length]);
+  }, [placement, repos, users, userRepoAlarms.length, channelRepoAlarms.length]);
 
     const componentMap = {
         'repos': {
@@ -67,6 +78,10 @@ function App() {
             table: userRepoAlarms? <UserRepoAlarmTableColumnPinning rows={userRepoAlarms} setPlacement={setPlacement}/> : <div>Loading...</div>,
             form: userRepoAlarms? <UserRepoAlarmFormComponent setData={setUserRepoAlarms}/> : <div>Loading...</div>
         },
+        'channel_repo_alarm': {
+            table: channelRepoAlarms? <ChannelRepoAlarmTableColumnPinning rows={channelRepoAlarms} setPlacement={setPlacement}/> : <div>Loading...</div>,
+            form: channelRepoAlarms? <ChannelRepoAlarmComponent setData={setChannelRepoAlarms}/> : <div>Loading...</div>
+        }
         // 추가적인 placement 값들을 여기에 추가할 수 있습니다.
     };
 

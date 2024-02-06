@@ -12,6 +12,9 @@ export const createChannelRepoAlarm = async (req: Request, res: Response) => {
         channelRepo.channel_id = req.body.channel_id;
         channelRepo.repo_id = req.body.repo_id;
         channelRepo.channel_name = req.body.channel_name;
+        channelRepo.repo_name = req.body.repo_name;
+        channelRepo.repo_is_internal = req.body.repo_is_internal;
+        channelRepo.repo_owner = req.body.repo_owner;
 
         await channelRepoAlarmService.createChannelRepoAlarm(channelRepo);
         console.log(channelRepo)

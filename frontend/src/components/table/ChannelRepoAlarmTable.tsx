@@ -8,19 +8,23 @@ import axios, {AxiosResponse} from "axios";
 
 
 interface ChannelRepoAlarmTableColumnPinningProps {
-    rows: ChannelRepoAlarm[];
+    rows: ChannelRepoAlarm[],
+    setPlacement: React.Dispatch<React.SetStateAction<'users' | 'repos' | 'user_repo_alarm' | 'channel_repo_alarm'>>
+
 }
 
-export default function ChannelRepoAlarmTableColumnPinning({rows}: ChannelRepoAlarmTableColumnPinningProps) {
-    // const handleDelete = (name:string, company_id: string) => () => {
-    //     axios.delete(`${process.env.REACT_APP_DB_API_SERVER}/users/${name}/${company_id}`)
-    //         .then((response: AxiosResponse) => {
-    //             console.log(response);
-    //         })
-    //         .catch((error) => {
-    //             console.log(error);
-    //         });
-    // }
+export default function ChannelRepoAlarmTableColumnPinning({rows, setPlacement}: ChannelRepoAlarmTableColumnPinningProps) {
+    const handleDelete = (channel_id:string, repo_id: string) => () => {
+        console.log(channel_id, repo_id)
+        axios.delete(`${process.env.REACT_APP_DB_API_SERVER}/channel-repo-alarm/${channel_id}/${repo_id}`)
+            .then((response: AxiosResponse) => {
+                console.log(response);
+                setPlacement('users')
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
     if (!Array.isArray(rows)) return <div>Loading...</div>
     return (
         <Box sx={{ width: '100%' }}>
@@ -84,7 +88,13 @@ export default function ChannelRepoAlarmTableColumnPinning({rows}: ChannelRepoAl
                         <th style={{width: 200}}>Channel Name</th>
                         <th style={{width: 200}}>Channel ID</th>
                         <th style={{width: 200}}>Repository ID &nbsp;</th>
-                        {/*    여기에 repo name 선택을 할수있도록 추가해야함.*/}
+                        <th style={{width: 200}}>Repository owner&nbsp;</th>
+                        <th style={{width: 200}}>Repository name&nbsp;</th>
+                        <th style={{width: 200}}>Delete&nbsp;</th>
+                        <th
+                            aria-label="last"
+                            style={{width: 'var(--Table-lastColumnWidth)'}}
+                        />
                     </tr>
                     </thead>
                     <tbody>
@@ -94,6 +104,16 @@ export default function ChannelRepoAlarmTableColumnPinning({rows}: ChannelRepoAl
                             <td>{item.channel_name}</td>
                             <td>{item.channel_id}</td>
                             <td>{item.repo_id}</td>
+                            <td>{item.repo_owner}</td>
+                            <td>{item.repo_name}</td>
+                            <td>
+                                <Box sx={{display: 'flex', gap: 1}}>
+                                    <Button size="sm" variant="soft" color="danger"
+                                            onClick={handleDelete(item.channel_id, String(item.repo_id))}>
+                                        Delete
+                                    </Button>
+                                </Box>
+                            </td>
                         </tr>
                     ))}
                     </tbody>

@@ -9,7 +9,7 @@ import axios, {AxiosResponse} from "axios";
 
 interface UserRepoAlarmTableColumnPinningProps {
     rows: UserRepoAlarm[];
-    setPlacement: React.Dispatch<React.SetStateAction<'users' | 'repos' | 'user_repo_alarm'>>;
+    setPlacement: React.Dispatch<React.SetStateAction<'users' | 'repos' | 'user_repo_alarm' | 'channel_repo_alarm'>>;
 }
 
 export default function UserRepoAlarmTableColumnPinning({rows, setPlacement}: UserRepoAlarmTableColumnPinningProps) {
