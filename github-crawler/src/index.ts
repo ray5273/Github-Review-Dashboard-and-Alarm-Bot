@@ -7,6 +7,8 @@ import { ReviewService } from "../../shared/src/db/service/review.service";
 import { RepoService } from "../../shared/src/db/service/repo.service";
 import { ReviewStatusService } from "../../shared/src/db/service/reviewStatus.service";
 import { createDirectChannel, sendPrAlarmByChannelId } from "./alarm.api";
+import {ChannelRepoAlarmService} from "../../shared/src/db/service/channel.repo.alarm.service";
+import {UserRepoAlarmService} from "../../shared/src/db/service/user.repo.alarm.service";
 
 async function main() {
     console.log("This is github rest api request service");
@@ -20,6 +22,8 @@ async function main() {
     const repoInstance = new RepoService(datasource);
     const userInstance = new UserService(datasource);
     const reviewStatusInstance = new ReviewStatusService(datasource);
+    const channelRepoAlarmInstance = new ChannelRepoAlarmService(datasource);
+    const userRepoAlarmInstance = new UserRepoAlarmService(datasource);
 
 
     try {
@@ -27,6 +31,8 @@ async function main() {
         const allUsers = await userInstance.getUserList();
         const repoLists = await repoInstance.getRepoList();
         // get channel ID list
+        const channelRepoAlarmList = await channelRepoAlarmInstance.getChannelRepoAlarmList();
+        const userRepoAlarmList = await userRepoAlarmInstance.getUserRepoAlarmList();
 
         for (let repo of repoLists) {
             const pullRequestLists = await sendGithubPullRequestsRequest(repo.owner, repo.name, repo.is_internal);
@@ -56,15 +62,28 @@ async function main() {
                     const botId : string = "5ma3ayf5bibc58ku8mqz4jgc7e"  // TODO : id 확인할 수 있는 metric 확인이 필요함.
                     const userId : string = "8jkc1apzgjnotxi9cd5fp71irr"
                     // if user is alarmable:
-                    const createdDirectChannelId = await createDirectChannel(botId, userId)
-                    console.log(createdDirectChannelId)
-                    const resp1 = await sendPrAlarmByChannelId(createdDirectChannelId, pr)
+                    // const createdDirectChannelId = await createDirectChannel(botId, userId)
+                    // console.log(createdDirectChannelId)
+                    // const resp1 = await sendPrAlarmByChannelId(createdDirectChannelId, pr)
+
+
+                    for (let channelRepoAlarm of channelRepoAlarmList) {
+                        if (channelRepoAlarm.repo_id === repo.id) {
+                            // const resp2 = await sendPrAlarmByChannelId(channelRepoAlarm.channel_id, pr)
+                            console.log(channelRepoAlarm.channel_id, pr.pr_name)
+                        }
+                    }
+                    // TODO : 특정 user가 특정 repo들에 대한 알람을 설정하는 db가 필요함.
+                    // TODO : 특정 Channel이 특정 repo들에 대한 알람을 설정하는 db가 필요함.
+                    // for (let userRepoAlarm of userRepoAlarmList) {
+                    //     if (userRepoAlarm.repo_id === repo.id) {
+                    //         createdDirectChannelId = await createDirectChannel(botId, userRepoAlarm.user_name)
+                    //         const resp3 = await sendPrAlarmByChannelId(userRepoAlarm., pr)
+                    //     }
+                    // }
 
                     //update alarm_sent in db
                     await prInstance.UpdateAlarmSentInPr(pr.pr_id, repo.id);
-
-                    // TODO : 특정 user가 특정 repo들에 대한 알람을 설정하는 db가 필요함.
-                    // TODO : 특정 Channel이 특정 repo들에 대한 알람을 설정하는 db가 필요함.
 
                 }
             }
