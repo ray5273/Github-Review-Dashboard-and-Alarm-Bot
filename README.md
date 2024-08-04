@@ -13,10 +13,10 @@ Review Dashboard for teams
 
 
 Admin Page Example : Repository Data
-![image]("https://github.com/ray5273/Github-Review-Dashboard-and-Alarm-Bot/assets/8529112/d76741a4-84c1-4682-8cfb-477b4cc6132a")
+![image](https://github.com/ray5273/Github-Review-Dashboard-and-Alarm-Bot/assets/8529112/d76741a4-84c1-4682-8cfb-477b4cc6132a)
 
 Admin Page Example : User Data
-![image]("https://github.com/ray5273/Github-Review-Dashboard-and-Alarm-Bot/assets/8529112/1e030934-5ef0-4cb3-9b8c-43b16ef09817")
+![image](https://github.com/ray5273/Github-Review-Dashboard-and-Alarm-Bot/assets/8529112/1e030934-5ef0-4cb3-9b8c-43b16ef09817)
 
 
 
